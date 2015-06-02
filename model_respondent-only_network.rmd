@@ -85,4 +85,4 @@ plot(triangle.esp.gof)
 dev.off()
 ````
 
-In Edges+Triangle model, fit to [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_triangle_degree.pdf), and fit to [esp](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_triangle_degree.pdf). Model converged.
+In Edges+Triangle model, fit to [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_triangle_degree.pdf), and fit to [esp](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_triangle_degree.pdf). Model converged. But does not converge on every try, have to give the fitting a few tries every time.
