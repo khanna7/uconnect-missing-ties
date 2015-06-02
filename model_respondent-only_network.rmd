@@ -55,4 +55,20 @@ edges.mod.esp.gof <- gof(edges.mod ~ esp)
 plot(edges.mod.esp.gof)
 ```
 
+##### Edges+Triangle Model
+```r
+triangle.mod <- ergm(R0.net ~ edges+triangle)
+mcmc.diagnostics(triangle.mod)
+triangle.deg.gof <- gof(triangle.mod~degree)
+triangle.esp.gof <- gof(triangle.mod~esp)
 
+pdf(file="gof_triangle_degree.pdf")
+plot(triangle.deg.gof)
+dev.off()
+
+pdf(file="gof_triangle_esp.pdf")
+plot(triangle.esp.gof)
+dev.off()
+````
+
+In Edges+Triangle model, fit to [edges], and fit to [esp]. 
