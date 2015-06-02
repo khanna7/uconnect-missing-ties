@@ -46,4 +46,13 @@ dev.off()
 See degree distribution [here](https://github.com/khanna7/UConect_MissingTies/blob/master/r0_deg_dist.pdf)
 
 
+##### Edges-Only Model
+```r
+edges.mod <- ergm(R0.net ~ edges, verbose=TRUE)
+edges.mod.deg.gof <- gof(edges.mod ~ degree)
+plot(edges.mod.deg.gof)
+edges.mod.esp.gof <- gof(edges.mod ~ esp)
+plot(edges.mod.esp.gof)
+```
+
 
