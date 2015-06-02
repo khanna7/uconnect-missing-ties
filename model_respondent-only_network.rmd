@@ -50,10 +50,18 @@ See degree distribution [here](https://github.com/khanna7/UConect_MissingTies/bl
 ```r
 edges.mod <- ergm(R0.net ~ edges, verbose=TRUE)
 edges.mod.deg.gof <- gof(edges.mod ~ degree)
-plot(edges.mod.deg.gof)
 edges.mod.esp.gof <- gof(edges.mod ~ esp)
+
+pdf(file="edgesonly_deg.pdf")
+plot(edges.mod.deg.gof)
+dev.off()
+
+pdf(file="edgesonly_esp.pdf")
 plot(edges.mod.esp.gof)
+dev.off()
 ```
+
+In Edges-only model, fit to [degree](), and fit to [esp](). Model converged.
 
 ##### Edges+Triangle Model
 ```r
