@@ -9,8 +9,8 @@ library(ggplot2)
 rm(list=ls())
 load("R0_net_wattributes_identified.RData")
 
+## Respondent-Only Network
 R0.net
-
  Network attributes:
   vertices = 302 
   directed = FALSE 
