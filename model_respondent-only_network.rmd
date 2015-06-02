@@ -1,6 +1,6 @@
-## Analysis of Respondent-Only Network
-### Aditya Khanna
-### Put final pro
+#### Analysis of Respondent-Only Network
+#### Aditya Khanna
+#### Put code to share here
 
 ``` r
 library(ergm)
@@ -44,4 +44,6 @@ dev.off()
 ```
 
 See degree distribution [here](https://github.com/khanna7/UConect_MissingTies/blob/master/r0_deg_dist.pdf)
+
+
 
