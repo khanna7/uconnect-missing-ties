@@ -61,7 +61,7 @@ plot(edges.mod.esp.gof)
 dev.off()
 ```
 
-In Edges-only model, fit to [degree](), and fit to [esp](). Model converged.
+In Edges-only model, fit to [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/edgesonly_deg.pdf), and fit to [esp](https://github.com/khanna7/UConect_MissingTies/blob/master/edgesonly_esp.pdf). Model converged.
 
 ##### Edges+Triangle Model
 ```r
