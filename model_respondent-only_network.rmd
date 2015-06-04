@@ -161,6 +161,6 @@ AIC: 24659    BIC: 24703    (Smaller is better.)
 ```
 
 Diagnostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod.pdf); 
-GOF: degree[https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_deg_gof.pdf], 
+GOF: [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_deg_gof.pdf), 
 [ESP](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_esp_gof.pdf), 
 [DSP](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_dsp_gof.pdf)
