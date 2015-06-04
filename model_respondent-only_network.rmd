@@ -89,7 +89,7 @@ dev.off()
 
 In Edges+Triangle model, fit to [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_triangle_degree.pdf), and fit to [esp](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_triangle_degree.pdf). Model converged, but it is [degenerate](https://github.com/khanna7/UConect_MissingTies/blob/master/mcmc_edges_triangle.png).
 
-#### Gwesp model
+#### GwEsp model
 ```r
 gwesp.mod <- ergm(R0.net ~ 
                   edges+gwesp(7, fixed=FALSE),
@@ -121,7 +121,7 @@ Signif. codes:  0  ***  0.001  **  0.01  *  0.05  .  0.1     1
 ```
 Dignostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/mcmc_gwesp_alpha7.pdf); GOFs: [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gwesp_alpha7_deg_gof.pdf), [esp](https://github.com/khanna7/UConect_MissingTies/blob/master/gwesp_alpha7_esp_gof.pdf)
 
-#### Gwesp model
+#### GwDsp model
 ```r
 gwdsp2.memfamily.age.mod <- ergm(R0.net ~ 
                                  edges+
