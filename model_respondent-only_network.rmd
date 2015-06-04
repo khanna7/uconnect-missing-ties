@@ -120,3 +120,47 @@ Signif. codes:  0  ***  0.001  **  0.01  *  0.05  .  0.1     1
 
 ```
 Dignostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/mcmc_gwesp_alpha7.pdf); GOFs: [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gwesp_alpha7_deg_gof.pdf), [esp](https://github.com/khanna7/UConect_MissingTies/blob/master/gwesp_alpha7_esp_gof.pdf)
+
+#### Gwesp model
+```r
+gwdsp2.memfamily.age.mod <- ergm(R0.net ~ 
+                                 edges+
+                                 gwdsp(2, fixed=FALSE)+
+                                 #nodematch('chicago', diff=TRUE, keep=2)+
+                                 nodematch('memfamily', diff=TRUE, keep=2)+
+                                 nodematch('agecalc', diff=FALSE),
+                                 verbose=TRUE,
+                                 )
+
+summary(gwdsp2.memfamily.age.mod)
+
+==========================
+Summary of model fit
+==========================
+
+Formula:   R0.net ~ edges + gwdsp(2, fixed = FALSE) + nodematch("memfamily", 
+    diff = TRUE, keep = 2) + nodematch("agecalc", diff = FALSE)
+
+Iterations:  20 
+
+Monte Carlo MLE Results:
+                       Estimate Std. Error MCMC % p-value    
+edges                 -2.292204   0.299276      0  <1e-04 ***
+gwdsp                 -0.007335   0.012009      0  0.5414    
+gwdsp.alpha            1.982573   0.412203      0  <1e-04 ***
+nodematch.memfamily.2 -0.003977   0.069442      0  0.9543    
+nodematch.agecalc      0.081358   0.036139      0  0.0244 *  
+---
+Signif. codes:  0  ***  0.001  **  0.01  *  0.05  .  0.1     1
+
+     Null Deviance: 63008  on 45451  degrees of freedom
+ Residual Deviance: 24649  on 45446  degrees of freedom
+ 
+AIC: 24659    BIC: 24703    (Smaller is better.) 
+
+```
+
+Diagnostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod.pdf); 
+GOF: degree[https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_deg_gof.pdf], 
+[ESP](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_esp_gof.pdf), 
+[DSP](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_dsp_gof.pdf)
