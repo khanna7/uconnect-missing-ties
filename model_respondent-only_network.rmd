@@ -5,6 +5,8 @@
 ## Put code to share here
 ```
 
+[Reference](http://mailman13.u.washington.edu/pipermail/statnet_help/2013/001528.html) on gwdsp, and gwesp
+
 ``` r
 library(ergm)
 library(network)
