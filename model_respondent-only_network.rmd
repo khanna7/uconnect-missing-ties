@@ -165,7 +165,7 @@ GOF: [degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_
 [ESP](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_esp_gof.pdf), 
 [DSP](https://github.com/khanna7/UConect_MissingTies/blob/master/gwdsp2_memfamily_age_mod_dsp_gof.pdf)
 
-#### GwDsp + nodecov(7 actors in each group, with mean degree of each group) model
+#### GwDsp + nodefactor(7 actors in each group, with mean degree of each group) model
 
 ```r
 mod.nodecov.gwdsp <- ergm(R0.net ~ edges+gwdsp(2, fixed=FALSE)+
@@ -198,7 +198,7 @@ nodefactor.deg.class.mean.deg.1                 -1.04410    0.15608      0
 ```
 
 
-#### GwDsp + nodecov(7 actors in each group, with mean degree of each group) + deg (0) model
+#### GwDsp + nodefactor(7 actors in each group, with mean degree of each group) + deg (0) model
 
 ```r
 mod.nodecov.deg0 <- ergm(R0.net ~ edges+gwdsp(2, fixed=FALSE)+
