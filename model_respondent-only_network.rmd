@@ -195,11 +195,11 @@ nodefactor.deg.class.mean.deg.1                 -1.04410    0.15608      0
 
 ...
 
-Diagnostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/mod_nodecov_gwdsp.pdf); 
-GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/deg_gof_nodecov_gwdsp.pdf)
 
 ```
 
+Diagnostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/mod_nodecov_gwdsp.pdf); 
+GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/deg_gof_nodecov_gwdsp.pdf)
 
 #### GwDsp + nodefactor(7 actors in each group, with mean degree of each group) + deg (0) model
 
