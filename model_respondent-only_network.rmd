@@ -245,3 +245,20 @@ Coarser deg classes (18, as opposed to 44 above)
  * Diagnostics [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/lower_res_nodeactor_plusdeg0_plusgwdsp.pdf)
  * GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_degree_lower_res_nodeactor_plusdeg0_plusgwdsp.pdf)
 
+```r
+
+## Degree 0:4 + Gwdsp(Fixed=FALSE) + 18 degree classes
+
+mod.nodefactor.deg0to10.18degclasses       <- ergm(R0.net ~ edges+
+                                             gwdsp(2, fixed=FALSE)+
+                                             degree(0:4)+
+                                             nodefactor("deg.class.mean.deg"),
+                                             maxit=10,
+                                             control=control.ergm(MCMC.interval=1),
+                                             verbose=TRUE
+                                             )
+
+```
+
+Diagnostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_degree_mod_nodefactor_deg0to4_18degclasses.pdf)
+GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/mod.nodefactor.deg0to4.18degclasses.pdf)
