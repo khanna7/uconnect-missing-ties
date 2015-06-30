@@ -193,13 +193,16 @@ gwdsp.alpha                                      1.98021    0.11295      0
 nodefactor.deg.class.mean.deg.0.428571428571429 -0.52934    0.14763      0
 nodefactor.deg.class.mean.deg.1                 -1.04410    0.15608      0
 
-...
-
+... (Truncated)
 
 ```
 
 Diagnostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/mod_nodecov_gwdsp.pdf); 
 GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/deg_gof_nodecov_gwdsp.pdf)
+
+Coarser deg classes (18, as opposed to 44 above) 
+ * Diagnostics [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/lower_res_nodeactor_nodegterms_plusgwdsp.pdf)
+ * GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_degree_lower_res_nodeactor_nodegterms_plusgwdsp.pdf)
 
 #### GwDsp + nodefactor(7 actors in each group, with mean degree of each group) + deg (0) model
 
