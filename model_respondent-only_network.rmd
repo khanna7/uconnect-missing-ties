@@ -234,9 +234,14 @@ degree0                                          3.00865    2.62310      0
 nodefactor.deg.class.mean.deg.0.428571428571429 -0.54648    0.16533      0
 nodefactor.deg.class.mean.deg.1                 -0.97854    0.14753      0
 nodefactor.deg.class.mean.deg.1.71428571428571  -0.31473    0.14812      0
-...
+... (Truncated)
 
 ```
 
 Diagnostics: [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/mod_nodecov_deg0.pdf); 
 GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/deg_gof_nodecov_deg0.pdf)
+
+Coarser deg classes (18, as opposed to 44 above) 
+ * Diagnostics [MCMC](https://github.com/khanna7/UConect_MissingTies/blob/master/lower_res_nodeactor_plusdeg0_plusgwdsp.pdf)
+ * GOF: [Degree](https://github.com/khanna7/UConect_MissingTies/blob/master/gof_degree_lower_res_nodeactor_plusdeg0_plusgwdsp.pdf)
+
