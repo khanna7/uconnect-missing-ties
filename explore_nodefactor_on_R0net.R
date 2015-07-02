@@ -7,7 +7,7 @@
    ## data
    load("R0_net_deidentified.RData")
 
-   ## obtain degree classes and compute mean degree
+   ## obtain degree classes and compute mean degrees
    deg.R0.net <- degree(R0.net, cmode="indegree")
    summary(deg.R0.net)
    hist(deg.R0.net)
