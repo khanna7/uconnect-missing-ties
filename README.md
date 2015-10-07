@@ -14,11 +14,11 @@ That is, in the smallest meaningful subset, we have approximately 9710C2 - 298C2
 Obviously, adding 47m unobserved edges in the smallest meaningful network isn't efficient. Can we use properties of the nodes to discover which ones are likely to be neighbors?
 
    * Age: median 24.0, mean 25.3, NA's 4 444
-   * Sex: fenales 3 973, males 5 696, missing 41
+   * Sex: females 3 973, males 5 696, missing 41
    * City: Chicago 4 834, missing 1 245
 
 ## A model for the complete case, respondent (or participant)-only network (R0).
-   We created a dyadic-independent model for the R0 network. Code is [here](https://github.com/khanna7/UConect_MissingTies/blob/master/explore_nodefactor_on_R0net.R). To diagnose degeneracy, I compared the number of triangles in R0.net with a sample simulation from the model; R0.net contains 17 594 triangles, and a sample simulation contained 15 911 triangles. 
+   We created a dyadic-independent model for the R0 network. Code is [here](https://github.com/khanna7/UConect_MissingTies/blob/master/explore_nodefactor_on_R0net.R). To diagnose degeneracy, I compared the number of triangles in R0.net with a sample simulation from the model; R0.net contains 17 594 triangles, and a sample simulation contained 15 911 triangles. Similarly, the empirical R0.net contained 141K 2-stars, 2.7m 3-stars, and 4.4m 4-stars. The simulated network contained 151K 2-stars, 3.1m 3-stars, and 5.6m 4-stars. 
    
 
 
