@@ -17,7 +17,8 @@ Obviously, adding 47m unobserved edges in the smallest meaningful network isn't 
    * Sex: fenales 3 973, males 5 696, missing 41
    * City: Chicago 4 834, missing 1 245
 
-
+## A model for the complete case, respondent (or participant)-only network (R0).
+   We created a dyadic-independent model for the R0 network. Code is [here](https://github.com/khanna7/UConect_MissingTies/blob/master/explore_nodefactor_on_R0net.R). 
    
 
 
