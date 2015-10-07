@@ -46,7 +46,6 @@ Obviously, adding 47m unobserved edges in the smallest meaningful network isn't 
      if (substr(messnet.vertex.names[[i]], 1, 4) == "1111" || 
          substr(messnet.vertex.names[[i]], 1, 4) == "2222"){
        cat("This is a uConnect study participant", "\n")
-       i = i+1
      } else {
        cat("This is not a uConnect study participant", "\n")
      for (j in 1:i){
