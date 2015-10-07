@@ -15,6 +15,10 @@ Using the network package, we have a method to denote missing edges in a 'networ
  
  ```r
  # script to add "missing edges" in the messaging network
+ 
+   library(igraph)
+   library(intergraph)
+   library(network)
    
    w1.messnet.net <- asNetwork(w1.messnet)
    w1.messnet.net
