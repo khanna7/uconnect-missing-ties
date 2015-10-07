@@ -18,7 +18,7 @@ Obviously, adding 47m unobserved edges in the smallest meaningful network isn't 
    * City: Chicago 4 834, missing 1 245
 
 ## A model for the complete case, respondent (or participant)-only network (R0).
-   We created a dyadic-independent model for the R0 network. Code is [here](https://github.com/khanna7/UConect_MissingTies/blob/master/explore_nodefactor_on_R0net.R). 
+   We created a dyadic-independent model for the R0 network. Code is [here](https://github.com/khanna7/UConect_MissingTies/blob/master/explore_nodefactor_on_R0net.R). To diagnose degeneracy, I compared the number of triangles in R0.net with a sample simulation from the model; R0.net contains 17 594 triangles, and a sample simulation contained 15 911 triangles. 
    
 
 
