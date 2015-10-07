@@ -20,9 +20,24 @@ Obviously, adding 47m unobserved edges in the smallest meaningful network isn't 
 ## A model for the complete case, respondent (or participant)-only network (R0).
    We created a dyadic-independent model for the R0 network. Code is [here](https://github.com/khanna7/UConect_MissingTies/blob/master/explore_nodefactor_on_R0net.R). To diagnose degeneracy, I compared the number of triangles in R0.net with a sample simulation from the model; R0.net contains 17 594 triangles, and a sample simulation contained 15 911 triangles. Similarly, the empirical R0.net contained 141K 2-stars, 2.7m 3-stars, and 4.4m 4-stars. The simulated network contained 151K 2-stars, 3.1m 3-stars, and 5.6m 4-stars. 
    
-
-
-
+```r
+## empirical network
+> summary(R0.net ~ gwesp)
+ esp#1  esp#2  esp#3  esp#4  esp#5  esp#6  esp#7  esp#8  esp#9 esp#10 esp#11 
+   136    108    120    129    106    120    133    117    116    103    119 
+esp#12 esp#13 esp#14 esp#15 esp#16 esp#17 esp#18 esp#19 esp#20 esp#21 esp#22 
+    91     99     69    103     90     90     79     85     75     67     63 
+esp#23 esp#24 esp#25 esp#26 esp#27 esp#28 esp#29 esp#30 
+    68     73     60     62     53     44     53     44 
+## simulated network
+> summary(sim.ex ~ gwesp)
+ esp#1  esp#2  esp#3  esp#4  esp#5  esp#6  esp#7  esp#8  esp#9 esp#10 esp#11 
+   154    184    169    132    149    141    126    137    114    108    103 
+esp#12 esp#13 esp#14 esp#15 esp#16 esp#17 esp#18 esp#19 esp#20 esp#21 esp#22 
+    78     89     83     91     85     71     92     61     67     69     65 
+esp#23 esp#24 esp#25 esp#26 esp#27 esp#28 esp#29 esp#30 
+    54     63     64     51     50     48     43     44 
+```
  
  ```r
  # script to add "missing edges" in the messaging network
