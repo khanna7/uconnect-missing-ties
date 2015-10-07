@@ -14,7 +14,35 @@ That is, in the smallest meaningful subset, we have approximately 9710C2 - 298C2
 Using the network package, we have a method to denote missing edges in a 'network':
  
  ```r
- 
- # method
+ # script to add "missing edges" in the messaging network
+   
+   w1.messnet.net <- asNetwork(w1.messnet)
+   w1.messnet.net
+   network.edgecount(w1.messnet.net)*2/network.size(w1.messnet.net)
+   w1.messnet.el <- as.edgelist(w1.messnet.net, directed=FALSE)
+   dim(w1.messnet.el)
+   
+   w1.messnet.na.edges <- w1.messnet.net
+   messnet.vertex.names <- w1.messnet.net%v%"vertex.names"
+   
+   for (i in 1:length(messnet.vertex.names)){
+     cat("Entering step ", i, "of ", length(messnet.vertex.names), "\n")
+     
+     if (substr(messnet.vertex.names[[i]], 1, 4) == "1111" || 
+         substr(messnet.vertex.names[[i]], 1, 4) == "2222"){
+       cat("This is a uConnect study participant", "\n")
+       i = i+1
+     } else {
+       cat("This is not a uConnect study participant", "\n")
+     for (j in 1:i){
+        if(w1.messnet.net[i, j] != 1){
+          cat("Adding edge", "\n")
+        w1.messnet.na.edges[i,j, add.edges=TRUE] <- NA   
+       }
+      }
+       
+    }
+     cat("Completing step ", i, "of ", length(messnet.vertex.names), "\n\n")  
+   }
  
  ```
