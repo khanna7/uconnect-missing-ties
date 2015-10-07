@@ -11,7 +11,7 @@ There are various subsets of the Facebook Wave 1 network that we can use.
 
 That is, in the smallest meaningful subset, we have approximately 9710C2 - 298C2 ~ 47m unobserved edges!
 
-Using the network package, we have a method to denote missing edges in a 'network':
+Using the `network` package, we have a method to denote missing edges in networks:
  
  ```r
  # script to add "missing edges" in the messaging network
