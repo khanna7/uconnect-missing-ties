@@ -79,7 +79,20 @@ w2.ig.non.particip.degree
 744 participants have >= 30 edges, i.e. are connected to ~10% of the sample.    
 528 of these participants are in the messaging network.
 
-
+* Summary statistics for non-participants
+```r
+## Age
+## Output hidden, contained some names
+  
+## Sex
+>    summary(non.particip.node.data$fb_sex)
+            f      m 
+  1099 127476 124549 
+  
+## In Chicago
+length(which(non.particip.node.data$fb_city == "chicago"))
+[1] 77794
+```
 
 
 
