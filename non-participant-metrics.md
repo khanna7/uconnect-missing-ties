@@ -1,0 +1,76 @@
+## Metrics on Facebook friends for the two waves
+
+Wave 1 analysis in `/home/khanna7/Projects/UConnect/UConnect_FB/FB_W1_Identified_4.15.2015/descriptives`.
+Wave 2 analysis in ``.
+
+### Wave 1
+* Degree distribution for non-participants
+
+```r
+>    table(w1.ig.non.particip.degree)
+w1.ig.non.particip.degree
+     1      2      3      4      5      6      7      8      9     10     11 
+139022  22931   7969   3783   2292   1451   1057    723    562    396    315 
+    12     13     14     15     16     17     18     19     20     21     22 
+   239    176    150    153    111    118     71     82     68     72     65 
+    23     24     25     26     27     28     29     30     31     32     33 
+    37     70     45     41     40     35     35     31     33     21     29 
+    34     35     36     37     38     39     40     41     42     43     44 
+    21     17     28     24     27     20     23     20     16     17     21 
+    45     46     47     48     49     50     51     52     53     54     55 
+    12     15     12     15     16     13      7      7      6      7     10 
+    56     57     58     59     60     61     62     63     64     65     66 
+    11      7      2     14      9      6      2      7      5      1      9 
+    67     68     69     70     71     72     73     74     75     76     78 
+     5      3      5      3      4      3      2      1      2      2      1 
+    79     80     81     82     83     84     85     87     88     89     91 
+     3      2      1      1      1      1      1      1      1      1      1 
+   102 
+     1 
+```
+587 participants have >= 30 edges, i.e. are connected to ~10% of the sample. 
+455 of these participants are in the messaging network.
+
+Summary statistics for non-participants
+```r
+## Age
+>    summary(non.particip.node.data$fb_age)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  13.00   20.00   23.00   24.57   26.00   90.00   89556
+  
+## Sex
+>    summary(non.particip.node.data$fb_sex)
+          f     m 
+  846 92322 89528 
+  
+  
+## In Chicago
+length(which(non.particip.node.data$fb_city == "chicago"))
+[1] 58270
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
