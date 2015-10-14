@@ -76,7 +76,7 @@ w2.ig.non.particip.degree
    102    103    104    105    108    109    110    111    116    121    125 
      2      2      2      3      1      1      2      1      1      1      1
 ```
-744 participants have >= 30 edges, i.e. are connected to ~10% of the sample.    
+744 participants have >= 40 edges, i.e. are connected to ~10% of the sample.    
 528 of these participants are in the messaging network.
 
 * Summary statistics for non-participants
