@@ -1,0 +1,42 @@
+## simulate in parallel using parlappy()
+rm(list=ls())
+
+## parallelize simulation of 100 iterations
+library(ergm)
+library(network)
+library(snow)
+library(Rmpi)
+library(methods)
+
+load("parallel-ergm-imputation-steve-ex.RData")
+
+simulate_in_parallel <-
+    function(imputed.ergm.object){
+
+    library(network)
+    library(ergm)
+    load("parallel-ergm-imputation-steve-ex.RData")
+    is.network(mynet.imputed)
+    sim <- simulate(imputed.ergm.object, constraints=~observed, nsim=1)
+    return(sim)
+}
+
+is.network(mynet.imputed)
+X <- mynet.imputed.ergm
+np <- mpi.universe.size()-1
+cluster <- makeCluster(np, type="MPI")
+   ## clusterCall(cl=cluster, simulate_in_parallel, mynet.imputed.ergm)
+
+sim_results <- parLapply(cluster, 1:10, function(x){
+    library(ergm)
+    library(network)
+    load("parallel-ergm-imputation-steve-ex.RData")
+    mynet.imputed <- as.network(mynet.imputed)
+    simulate(mynet.imputed ~ edges+nodecov('respdeg'), constraints=~observed, nsim=1)
+    }
+                         )
+
+stopCluster(cluster)
+mpi.exit()
+
+save.image(file="steve-ex-sim-parallel.RData")
