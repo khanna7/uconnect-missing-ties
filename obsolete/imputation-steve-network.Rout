@@ -1,0 +1,96 @@
+
+R version 3.2.1 Patched (2015-07-12 r68650) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> # Demonstration of imputation of alter-alter ties using degree with
+> #      with respondents as one predictor of the missing ties
+> 
+> rm(list=ls())
+> ##########################
+> # params to set
+> nresp <- 300
+> nalters <- 700
+> mdeg <- 22
+> #mdeg <- 35
+> 
+> ##########################
+> # Process
+> library(ergm)
+Loading required package: statnet.common
+Loading required package: network
+network: Classes for Relational Data
+Version 1.12.0 created on 2015-03-04.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+
+ergm: version 3.4.0, created on 2015-06-16
+Copyright (c) 2015, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: If you use custom ERGM terms based on ‘ergm.userterms’ version
+prior to 3.1, you will need to perform a one-time update of the package
+boilerplate files (the files that you did not write or modify) from
+‘ergm.userterms’ 3.1 or later. See help('eut-upgrade') for
+instructions.
+
+> n <- nresp + nalters
+> 
+> ###########################
+> # Create init net
+> 
+> mynet <- network.initialize(n, directed=F)
+> greg <- runif(n) # just to get extra variation in underlying observed degree
+> mynet <- set.vertex.attribute(mynet, 'greg', greg)
+> myfit <- ergm(mynet~edges+nodecov('greg'),
++               target.stats=c(mdeg*n/2,1.1*mdeg*n/2)) # The 1.1 means that those with higher 'gregariousness'
+Starting maximum likelihood estimation via MCMLE:
+Iteration 1 of at most 20: 
+The log-likelihood improved by 0.04256 
+Step length converged once. Increasing MCMC sample size.
+Iteration 2 of at most 20: 
+The log-likelihood improved by 0.09227 
+Step length converged twice. Stopping.
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.
+>                                                      # will form more ties.
+> mynet <- simulate(myfit)
+> 
+> #########################
+> save.image(file="steve-example-network.RData")
+> 
+> proc.time()
+   user  system elapsed 
+627.089  16.352 134.828 

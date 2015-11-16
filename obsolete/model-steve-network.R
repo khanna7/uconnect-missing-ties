@@ -1,0 +1,41 @@
+## model steve's big network
+
+   library(network)
+   library(ergm)
+   library(snow)
+   library(Rmpi)
+   library(methods)
+
+   rm(list=ls())
+   load("steve-example-network.RData")
+   load("steve-imputed-matrix-ii.RData")
+
+   mynet.mat <- as.matrix(mynet, "adjacency")
+   mynet.mat[((nresp+1):n),((nresp+1):n)] <- imputed_matrix
+
+   mynet.imputed <- as.network.matrix(mynet.mat, matrix.type="adjacency", directed=FALSE)
+   summary(mynet.imputed ~ edges)
+
+   respdeg <- sapply(1:n, function(x) sum(mynet.imputed[x,1:nresp])) 
+   mynet.imputed <- set.vertex.attribute(mynet.imputed, 'respdeg', respdeg)  
+   table(mynet.imputed%v%"respdeg"); length(mynet.imputed%v%"respdeg")
+
+
+   np <- mpi.universe.size()-1
+   cluster <- makeMPIcluster(np)
+   t0 <- proc.time()
+   mynet.imputed.ergm <- ergm(mynet.imputed ~ edges+nodecov('respdeg'), 
+                              control=control.ergm(parallel=cluster)
+                              )
+
+   ## mynet.imputed.ergm <- ergm(mynet.imputed ~ edges + nodecov('respdeg'), 
+   ##                            verbose=TRUE
+   ##                            )
+
+   ## mynet.sim <- simulate(mynet.imputed.ergm, constraints=~observed, nsim=100)
+   proc.time()-t0
+
+   stopCluster(cluster)
+   mpi.exit()
+   
+   save.image("parallel-ergm-imputation-steve-ex.RData")

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#SBATCH --ntasks=1
+#SBATCH --exclusive
+#SBATCH --output="steve-example-n50.out"
+
+# Always use -n 1 for the Rmpi package. It spawns additional processes dynamically
+mpirun -n 1 Rscript imputation-steve-assignNA.R 

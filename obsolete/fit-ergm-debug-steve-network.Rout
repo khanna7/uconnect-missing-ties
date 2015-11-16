@@ -1,0 +1,94 @@
+
+R version 3.2.1 Patched (2015-07-12 r68650) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> ## model steve's big network
+> 
+>    library(network)
+network: Classes for Relational Data
+Version 1.12.0 created on 2015-03-04.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+>    library(ergm)
+Loading required package: statnet.common
+
+ergm: version 3.4.0, created on 2015-06-16
+Copyright (c) 2015, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: If you use custom ERGM terms based on ‘ergm.userterms’ version
+prior to 3.1, you will need to perform a one-time update of the package
+boilerplate files (the files that you did not write or modify) from
+‘ergm.userterms’ 3.1 or later. See help('eut-upgrade') for
+instructions.
+
+> 
+>    rm(list=ls())
+>    load("steve-example-network.RData")
+>    load("steve-imputed-matrix-ii.RData")
+> 
+>    mynet.mat <- as.matrix(mynet, "adjacency")
+>    mynet.mat[((nresp+1):n),((nresp+1):n)] <- imputed_matrix
+> 
+>    mynet.imputed <- as.network.matrix(mynet.mat, matrix.type="adjacency",
++                                       directed=FALSE)
+>    summary(mynet.imputed ~ edges)
+edges 
+ 5554 
+> 
+>    respdeg <- sapply(1:n, function(x) sum(mynet.imputed[x,1:nresp])) 
+>    mynet.imputed <- set.vertex.attribute(mynet.imputed, 'respdeg', respdeg)  
+>    table(mynet.imputed%v%"respdeg"); length(mynet.imputed%v%"respdeg")
+
+  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17 
+  3  11  38  83 118 143 130 116 126  89  54  40  20  10   8   5   5   1 
+[1] 1000
+> 
+>    t0 <- proc.time()
+>    mynet.imputed.ergm <- ergm(mynet.imputed ~ edges+nodecov('respdeg')
++                               )
+>    proc.time() - t0
+    user   system  elapsed 
+1327.003    0.327 1328.292 
+> 
+>    sim <- simulate(mynet.imputed.ergm,
++                    constraints=~observed, nsim=5)
+> 
+>    save.image("parallel-ergm-imputation-steve-ex.RData")
+> 
+> proc.time()
+    user   system  elapsed 
+1419.173    0.870 1421.969 
