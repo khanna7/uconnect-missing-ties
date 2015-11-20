@@ -3,6 +3,7 @@
 
    ## libraries
    library(ergm)
+   library(network)
    library(snow)
    library(Rmpi)
    library(methods)
@@ -10,27 +11,26 @@
    ## data
    load("fitted_ergm_imputed_network.RData")
 
-   ## function to be used in parLapply
-   simulate_in_parallel <-
-       function(imputed.ergm.object){
-           library(network)
-           library(ergm)
-           load("fitted_ergm_imputed_network.RData")
-           is.network(mynet.imputed)
-           sim <- simulate(imputed.ergm.object, constraints=~observed, nsim=1)
-           return(sim)
-       }
-
     ## set up mpi
-
+    is.network(imputed_network)
+    np <- mpi.universe.size()-1
+    cluster <- makeCluster(np, type="MPI")
 
     ## simulate in parallel
+    nsim.vec <- 1:500
 
+    sim_results <- parLapply(cluster, nsim.vec, function(x){
+        library(ergm)
+        library(network)
+        load("fitted_ergm_imputed_network.RData")
+        mynet.imputed <- as.network(imputed_network)
+        simulate(imputed_network ~ edges+nodecov('respdeg'), constraints=~observed, nsim=1)
+    }
+                             )
 
-    ## stop mpi
+    ## stop mpislurm-17434670.out
+    stopCluster(cluster)
+    mpi.exit()
 
-   ## Simulate from fitted ERGM
-   sim <- simulate(ergm.imputed_network, constraints=~observed, nsim=1)
-
-   ## save
-   save.image("sim_from_fitted_ergm_objects.RData")
+    ## save
+    save.image("sim_from_fitted_ergm_objects_in_parallel_5e2_1.RData")
