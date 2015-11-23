@@ -3,4 +3,4 @@
 
 # slurm log files
 slurm*
-*.ou
+*.out
