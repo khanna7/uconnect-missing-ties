@@ -1,6 +1,0 @@
-# RData files
-*.RData
-
-# slurm log files
-slurm*
-*.out
