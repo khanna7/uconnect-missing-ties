@@ -1,0 +1,3 @@
+fitted_ergm_imputed_network.RData imputed_matrix.RData imputed_network.RData sim_from_fitted_ergm_objects_in_parallel_10.RData sim_from_fitted_ergm_objects_in_parallel_5e2_1.RData sim_from_fitted_ergm_objects_in_parallel_5e2_2.RData sim_from_fitted_ergm_objects_in_parallel.RData sim_from_fitted_ergm_objects_in_serial.RData
+slurm-17434622.out slurm-17434642.out slurm-17434648.out slurm-17434809.out
+sim_in_parallel.out slurm-17434622.out slurm-17434642.out slurm-17434648.out slurm-17434809.out
