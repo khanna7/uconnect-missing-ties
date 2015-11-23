@@ -1,0 +1,6 @@
+# RData files
+*.RData
+
+# slurm log files
+slurm*
+*.ou
