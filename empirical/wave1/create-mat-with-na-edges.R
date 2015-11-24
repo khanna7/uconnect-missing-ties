@@ -6,10 +6,24 @@
    library(igraph)
    library(network)
    library(snow)
-   library(Rmpi)
+   #library(Rmpi)
 
    ## data
    load("/home/khanna7/Projects/UConnect/UConnect_FB/FB_W1_Identified_4.15.2015/descriptives/w1_missing_tie_imputation_networks.RData")
+
+   ## order vertex names to avoid trouble later
+   vnames <- w1.net.deg.greq.30%v%"vertex.names"
+   resp.1 <- which(substr(vnames, 1, 4) == "1111")
+   resp.2 <- which(substr(vnames, 1, 4) == "2222")
+   vnames.nr <- vnames[-c(resp.1, resp.2)] 
+   vnames.nr <- paste0("NR.", vnames.nr)
+   vnames[-c(resp.1, resp.2)] <- vnames.nr
+   nonresp <- which(substr(vnames, 1, 3) == "NR.")
+
+   vnames.ordered <- c(resp.1, resp.2, nonresp)
+  
+    permute.vertexIDs(w1.net.deg.greq.30,
+                      vids=vnames.ordered)
 
    ## add na's to edges of non-participant nodes
    adj.mat.w1.net.fb.deg.greq.30 <- as.matrix.network(w1.net.deg.greq.30, "adjacency")

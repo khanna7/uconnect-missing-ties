@@ -17,7 +17,7 @@
     cluster <- makeCluster(np, type="MPI")
 
     ## simulate in parallel
-    nsim.vec <- 1:500
+    nsim.vec <- 1:10
 
     sim_results <- parLapply(cluster, nsim.vec, function(x){
         library(ergm)
@@ -33,4 +33,4 @@
     mpi.exit()
 
     ## save
-    save.image("sim_from_fitted_ergm_objects_in_parallel_5e2_2.RData")
+    save.image("sim_from_fitted_ergm_objects_in_parallel_ten.RData")
