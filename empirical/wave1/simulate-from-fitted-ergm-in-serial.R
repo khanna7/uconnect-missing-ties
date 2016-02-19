@@ -11,8 +11,8 @@
    ## Simulate from fitted ERGM
    sim <- simulate(ergm.imputed_network, constraints=~observed, nsim=1,
                    control=control.simulate.ergm(
-                       MCMC.burnin=5e8,
-                       MCMC.interval=5e8
+                       MCMC.burnin=1e6, #went up to 5e8 for testing on both 
+                       MCMC.interval=1e5
                    )
                    )
    sim #simualted object
