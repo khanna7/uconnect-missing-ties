@@ -11,7 +11,7 @@
 
    ## Add 'respdeg' attribute
    deg.imputed_network <- degree(imputed_network)
-   imputed_network%v%"respdeg" <- deg.imputed_network
+   #imputed_network%v%"respdeg" <- deg.imputed_network (was incorrect)
    n <- network.size(imputed_network)
    resp <- union(
                  which(substr(imputed_network %v% "vertex.names",1,4) == "1111"),
