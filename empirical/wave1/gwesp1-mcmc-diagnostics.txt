@@ -1,4 +1,3 @@
-
    mcmc.diagnostics(ergm.imputed_network)
 Sample statistics summary:
 
@@ -103,3 +102,7 @@ P-values (lower = worse):
 Joint P-value (lower = worse):  0.0002112073 .
 
 MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).
+>    dev.off()
+null device 
+          1 
+> 
