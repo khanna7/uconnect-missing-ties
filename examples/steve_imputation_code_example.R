@@ -62,3 +62,5 @@ dev.off()
 ## #      so the gwesp term is not significant - but at least we see the mechanics work
 
 ## # Then, calculate all sorts of centrality scores across the 100 networks saved in output2
+
+save.image(file="steve-simple-example-50v.RData")
