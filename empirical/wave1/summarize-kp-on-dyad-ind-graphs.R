@@ -15,4 +15,4 @@
    sort_tab_kp_dyadic_ind_mod_base_13 <- sort(tab_kp_dyadic_ind_mod_base_13, decreasing=TRUE)
 
    ## save
-   save.image(file="sort_top300_kp_dyadic_ind_mod_base_13.RData")
+   save.image(file="sort_top300_kp_dyadic_ind_mod_base_13_try1.RData")
