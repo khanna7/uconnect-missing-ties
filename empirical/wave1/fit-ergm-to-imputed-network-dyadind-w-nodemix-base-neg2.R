@@ -28,7 +28,7 @@
    ## Fit ergm with edges + nodecov('respdeg')
    ergm.imputed_network <- ergm(imputed_network ~ edges +
                                                   nodecov('respdeg')+
-                                                  nodemix('respdeg', base=(-2)),
+                                                  nodemix('respondent', base=(-2)),
                                                   verbose=TRUE
                                 )
                                             

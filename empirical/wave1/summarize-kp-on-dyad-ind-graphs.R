@@ -14,5 +14,10 @@
    length(tab_kp_dyadic_ind_mod_base_13)
    sort_tab_kp_dyadic_ind_mod_base_13 <- sort(tab_kp_dyadic_ind_mod_base_13, decreasing=TRUE)
 
+   length(sort_tab_kp_dyadic_ind_mod_base_13)
+   names.in.num <- as.numeric(names(sort_tab_kp_dyadic_ind_mod_base_13))
+   length(which(names.in.num > 298))
+
    ## save
    save.image(file="sort_top300_kp_dyadic_ind_mod_base_13_try1.RData")
+   saveRDS(names.in.num, file="set300_kp_dyad_ind.RDS")

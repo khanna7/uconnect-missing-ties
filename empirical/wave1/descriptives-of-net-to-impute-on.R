@@ -57,9 +57,9 @@
       ## compute metrics
          colnames_data <- as.data.frame(colnames(imp_nodes_data))
          ## age
-         summary(imp_nodes_data$fb_sex, exclude=NULL)
-         summary(respondent_data$fb_sex, exclude=NULL)
-         summary(alter_data$fb_sex, exclude=NULL)  
+         summary(imp_nodes_data$fb_age, exclude=NULL)
+         summary(respondent_data$fb_age, exclude=NULL)
+         summary(alter_data$fb_age, exclude=NULL)  
          ## sex
          table(imp_nodes_data$fb_sex, exclude=NULL)
          table(respondent_data$fb_sex, exclude=NULL)
@@ -67,7 +67,11 @@
          ## city chicago
          table(imp_nodes_data$fb_city_chicago, exclude=NULL)
          table(respondent_data$fb_city_chicago, exclude=NULL)
-         table(alter_data$fb_city_chicago, exclude=NULL)          
+         table(alter_data$fb_city_chicago, exclude=NULL) 
+         ## PrEP know
+         table(imp_nodes_data$prepknow2, exclude=NULL)
+         table(respondent_data$prepknow2, exclude=NULL)
+         table(alter_data$prepknow2, exclude=NULL)    
    ## save
 
  

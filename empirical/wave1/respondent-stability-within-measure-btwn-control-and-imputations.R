@@ -12,7 +12,8 @@ rm(list=ls())
 
    resp_btwn_control_885nodes <- btwn_control_885nodes[which(btwn_control_885nodes <= 298)]
    resp_btwn_imputed_885nodes <- btwn_imputed_885nodes[which(btwn_imputed_885nodes <= 298)]
-   length(intersect(resp_btwn_control_885nodes, resp_btwn_imputed_885nodes))
+   resp_sel_in_raw_imputed_btwn <- intersect(resp_btwn_control_885nodes, resp_btwn_imputed_885nodes)
+   length(resp_sel_in_raw_imputed_btwn)
 
    ## eigenvector centrality
    evcent_control_885nodes <- readRDS("control_885nodes_evcent_top300.RDS")
@@ -20,7 +21,8 @@ rm(list=ls())
 
    resp_evcent_control_885nodes <- evcent_control_885nodes[which(evcent_control_885nodes <= 298)]
    resp_evcent_imputed_885nodes <- evcent_imputed_885nodes[which(evcent_imputed_885nodes <= 298)]
-   length(intersect(resp_evcent_control_885nodes, resp_evcent_imputed_885nodes))
+   resp_sel_in_raw_imputed_evcent <- intersect(resp_evcent_control_885nodes, resp_evcent_imputed_885nodes)
+   length(resp_sel_in_raw_imputed_evcent)
 
    ## bridging
    bridging_control_885nodes <- readRDS("control_885nodes_bridging_top300.RDS")
@@ -28,7 +30,8 @@ rm(list=ls())
 
    resp_bridging_control_885nodes <- bridging_control_885nodes[which(bridging_control_885nodes <= 298)]
    resp_bridging_imputed_885nodes <- bridging_imputed_885nodes[which(bridging_imputed_885nodes <= 298)]
-   length(intersect(resp_bridging_control_885nodes, resp_bridging_imputed_885nodes))
+   resp_sel_in_raw_imputed_bridging <- intersect(resp_bridging_control_885nodes, resp_bridging_imputed_885nodes)
+   length(resp_sel_in_raw_imputed_bridging)
 
    ## key player
    kp_control_885nodes <- readRDS("control_885nodes_kp_set300.RDS")
@@ -36,4 +39,17 @@ rm(list=ls())
 
    resp_kp_control_885nodes <- kp_control_885nodes[which(kp_control_885nodes <= 298)]
    resp_kp_imputed_885nodes <- kp_imputed_885nodes[which(kp_imputed_885nodes <= 298)]
-   length(intersect(resp_kp_control_885nodes, resp_kp_imputed_885nodes))
+   resp_sel_in_raw_imputed_kp <- intersect(resp_kp_control_885nodes, resp_kp_imputed_885nodes)
+
+   ## intersections in these respondent pCA's
+      ## btwn and all three
+      length(intersect(resp_sel_in_raw_imputed_btwn, resp_sel_in_raw_imputed_evcent))
+      length(intersect(resp_sel_in_raw_imputed_btwn, resp_sel_in_raw_imputed_kp))
+      length(intersect(resp_sel_in_raw_imputed_btwn, resp_sel_in_raw_imputed_bridging))
+
+      ## evcent and two
+      length(intersect(resp_sel_in_raw_imputed_evcent, resp_sel_in_raw_imputed_bridging))
+      length(intersect(resp_sel_in_raw_imputed_evcent, resp_sel_in_raw_imputed_kp))
+
+      ## bridging and one
+      length(intersect(resp_sel_in_raw_imputed_bridging, resp_sel_in_raw_imputed_kp))
