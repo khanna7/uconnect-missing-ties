@@ -1,0 +1,54 @@
+## visualize networks
+
+
+```{r, echo=FALSE}
+ 
+rm(list=ls())
+   suppressPackageStartupMessages(library(GGally))
+   suppressPackageStartupMessages(library(sna))
+   suppressPackageStartupMessages(library(network))
+   suppressPackageStartupMessages(library(ggplot2))
+
+```
+
+Networks without (i.e "control", left) and with tie imputation are shown below.
+
+```{r, echo=FALSE, results='hide', cache=TRUE} 
+  ## PLOT CONTROL NETWORK
+  rm(list=ls())
+  r0_net <- readRDS("r0-net-for-885-nodes.RDS")
+  set.vertex.attribute(r0_net, "respondent", "yes", v=1:298)
+  set.vertex.attribute(r0_net, "respondent", "no", v=299:network.size(r0_net))
+  #ggnet2(r0_net, size=1, color="respondent")
+
+  deg_r0_net <- degree(r0_net, gmode="graph")
+  summary(deg_r0_net)
+  r0_net %v% "degree" <- degree(r0_net) 
+  table(r0_net %v% "respondent")
+
+  #pdf(file="ggnet-ex.pdf")
+  ggnet2(r0_net, color="respondent", size=1,
+         palette = "Set2")
+  
+  
+  ## PLOT IMPUTED NETWORK
+imp_networks <- readRDS("sim_from_fitted_ind_ergm_objects_in_serial_nonodemix.RDS")
+  #imp_networks <- readRDS("sim_from_fitted_ergm_objects_in_serial_hun#dred_dyad_ind_base_13.RDS")
+  n_to_plot <- sample(1:length(imp_networks), 1)
+  imp_to_plot <- imp_networks[[n_to_plot]]
+  list.vertex.attributes(imp_to_plot) 
+
+  set.vertex.attribute(imp_to_plot, "respondent", "yes", 1:298)
+  set.vertex.attribute(imp_to_plot, "respondent", "no", 299:885)
+   
+  ggnet2(imp_to_plot, size=1, color="respondent", 
+         palette = "Set2")
+
+  deg_imp_to_plot <- degree(imp_to_plot, gmode="graph")
+  summary(deg_imp_to_plot)
+  table(imp_to_plot %v% "respondent")
+
+  isolates_in_control <- which(deg_r0_net == 0)
+  deg_imp_to_plot[isolates_in_control]
+  summary(deg_imp_to_plot[isolates_in_control])
+```

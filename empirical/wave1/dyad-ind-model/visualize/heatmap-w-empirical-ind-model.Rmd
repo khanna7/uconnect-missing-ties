@@ -1,0 +1,74 @@
+Heatmaps for imputation with independent models
+========================================================
+
+Heatmaps for the imputed networks are below.
+
+## Libraries and Data
+Start by loading the libraries 
+
+```{r}
+rm(list=ls())
+## Visualize heatmap for imputed graphs
+   suppressPackageStartupMessages(library(sna))
+   suppressPackageStartupMessages(library(network))
+   suppressPackageStartupMessages(library(ggplot2))
+```
+and reading in the data.
+```{r}
+## data
+#net_list <- readRDS("sim_from_fitted_ergm_objects_in_serial_hundred_dyad_ind_base_13.RDS")
+net_list <- readRDS("sim_from_fitted_ind_ergm_objects_in_serial_nonodemix.RDS")
+```
+
+## Processsing the Data
+Then we process the data
+```{r}
+net <- net_list[[1]]
+n <- network.size(net)
+matrix.list <- array(NA, dim=c(n, n, length(net_list)))
+
+matrices <- lapply(net_list, function (x) as.matrix.network(x, "adjacency"))
+
+for (i in 1:length(net_list)){
+  matrix.list[, , i] <- matrices[[i]]
+}
+
+```
+and compile the above data in to a "frequency" matrix
+```{r}
+freq <- apply(matrix.list, c(1,2), sum)
+colnames(freq) <- net%v%"vertex.names" 
+rownames(freq) <- net%v%"vertex.names" 
+```
+
+## Plot
+Now plot it's image. 
+
+```{r}
+image(freq, col=gray(32:0/32))
+```
+
+The x-axis shows respondents to non-respondents from left to right, and the y-axis shows respondents to nonrespondents from the bottom to the top. Hence, in 
+every case, the **upper right corner** is nonrespondent-nonrespondent, and what we care about.
+
+Image plot, consisting of 50 respondents and 50 nonrespondets is below.
+```{r}
+freq_small <- freq[273:323, 273:323]
+image(freq_small, col=gray(32:0/32))
+```
+
+For the sake of comparison, an image plot with only respondents:
+  
+  ```{r}
+freq_resp <- freq[100:150, 100:150]
+image(freq_resp, col=gray(32:0/32))
+```
+
+And with only nonrespondents:
+
+```{r}
+freq_nonresp <- freq[325:375, 325:375]
+image(freq_nonresp, col=gray(32:0/32))
+```
+
+
