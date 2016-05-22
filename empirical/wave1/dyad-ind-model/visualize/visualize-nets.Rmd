@@ -7,6 +7,7 @@ rm(list=ls())
    suppressPackageStartupMessages(library(GGally))
    suppressPackageStartupMessages(library(sna))
    suppressPackageStartupMessages(library(network))
+   suppressPackageStartupMessages(library(ergm))
    suppressPackageStartupMessages(library(ggplot2))
 
 ```
@@ -16,7 +17,7 @@ Networks without (i.e "control", left) and with tie imputation are shown below.
 ```{r, echo=FALSE, results='hide', cache=TRUE} 
   ## PLOT CONTROL NETWORK
   rm(list=ls())
-  r0_net <- readRDS("r0-net-for-885-nodes.RDS")
+  r0_net <- readRDS("../../control-net/r0-net-for-885-nodes.RDS")
   set.vertex.attribute(r0_net, "respondent", "yes", v=1:298)
   set.vertex.attribute(r0_net, "respondent", "no", v=299:network.size(r0_net))
   #ggnet2(r0_net, size=1, color="respondent")
@@ -28,21 +29,21 @@ Networks without (i.e "control", left) and with tie imputation are shown below.
 
   #pdf(file="ggnet-ex.pdf")
   ggnet2(r0_net, color="respondent", size=1,
-         palette = "Set2")
-  
+         palette = "Set2")+ggtitle("Raw Data") 
   
   ## PLOT IMPUTED NETWORK
-imp_networks <- readRDS("sim_from_fitted_ind_ergm_objects_in_serial_nonodemix.RDS")
-  #imp_networks <- readRDS("sim_from_fitted_ergm_objects_in_serial_hun#dred_dyad_ind_base_13.RDS")
+imp_networks <- readRDS("../sim-from-ergm/imputed_10_nets_w_nodemix.RDS")
+
   n_to_plot <- sample(1:length(imp_networks), 1)
-  imp_to_plot <- imp_networks[[n_to_plot]]
+  imp_to_plot <- sample(imp_networks, 1)
+  imp_to_plot <- imp_to_plot[[1]]
   list.vertex.attributes(imp_to_plot) 
 
   set.vertex.attribute(imp_to_plot, "respondent", "yes", 1:298)
   set.vertex.attribute(imp_to_plot, "respondent", "no", 299:885)
    
   ggnet2(imp_to_plot, size=1, color="respondent", 
-         palette = "Set2")
+         palette = "Set2")+ggtitle("Imputed data")
 
   deg_imp_to_plot <- degree(imp_to_plot, gmode="graph")
   summary(deg_imp_to_plot)
@@ -51,4 +52,37 @@ imp_networks <- readRDS("sim_from_fitted_ind_ergm_objects_in_serial_nonodemix.RD
   isolates_in_control <- which(deg_r0_net == 0)
   deg_imp_to_plot[isolates_in_control]
   summary(deg_imp_to_plot[isolates_in_control])
+```
+
+The degree distributions in the two networks are below.
+
+```{r, echo=FALSE, results='hide', cache=TRUE} 
+control_deg_dist <- degreedist(r0_net)
+cont_degrees <- names(control_deg_dist)
+cont_degrees_clean_name <- as.numeric(gsub("degree", "", 
+                                           cont_degrees))
+length(control_deg_dist)
+control_deg_dist <- as.data.frame(control_deg_dist)
+control_deg_dist <- cbind(cont_degrees_clean_name, 
+                          control_deg_dist, "raw")
+colnames(control_deg_dist) <- c("degrees", "frequency", "network")
+
+
+imp_deg_dist <- degreedist(imp_to_plot)
+imp_degrees <- names(imp_deg_dist)
+imp_degrees_clean_name <- as.numeric(gsub("degree", "", imp_degrees))
+length(imp_deg_dist)
+imp_deg_dist <- as.data.frame(imp_deg_dist)
+imp_deg_dist <- cbind(imp_degrees_clean_name, imp_deg_dist, "imputed")
+colnames(imp_deg_dist) <- c("degrees", "frequency", "network")
+
+deg_dist_data <- rbind(control_deg_dist, imp_deg_dist)
+
+
+ggplot(deg_dist_data, aes(x=degrees, 
+                          y=frequency/network.size(r0_net), 
+                          fill=network))+
+    geom_bar(position="dodge", stat="identity")+
+    ylim(0, 0.05)+
+    xlab("degrees")+ylab("proportion of nodes")
 ```
