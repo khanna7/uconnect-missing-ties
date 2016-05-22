@@ -4,10 +4,11 @@
    rm(list=ls())
    library(igraph)
    library(influenceR)
-   load("dyadic-ind-mod-base-13-igraphs.RData")
+
+   igraph_list <- readRDS("ten_imputed_igraphs.RDS")
 
    ## compute betweenness centrality
-   kp_dyadic_ind_mod_base_13 <- lapply(sim_results_igraph_indmod_base13,
+   kp_dyadic_ind_mod_base_13 <- lapply(igraph_list,
                                            function(x)
                                                keyplayer(x, k=300))
    ## save 
