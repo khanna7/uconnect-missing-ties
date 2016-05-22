@@ -4,10 +4,12 @@
    rm(list=ls())
    library(igraph)
    library(influenceR)
-   load("dyadic-ind-mod-base-13-igraphs.RData")
+   
+   #load("dyadic-ind-mod-base-13-igraphs.RData")
+   igraph_list <- readRDS("ten_imputed_igraphs.RDS")
 
    ## compute betweenness centrality
-   btwn_dyadic_ind_mod_base_13 <- lapply(sim_results_igraph_indmod_base13,
+   btwn_dyadic_ind_mod_base_13 <- lapply(igraph_list,
                                            function(x)
                                                influenceR::betweenness(x))
 
