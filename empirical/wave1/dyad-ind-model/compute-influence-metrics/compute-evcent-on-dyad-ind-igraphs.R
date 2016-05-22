@@ -3,24 +3,30 @@
    ## libraries and data
    rm(list=ls())
    library(igraph)
-   load("dyadic-ind-mod-base-13-igraphs.RData")
+
+   igraph_list <- readRDS("ten_imputed_igraphs.RDS")
 
    ## compute eigenvector centrality
-   evcent_dyadic_ind_mod_base_13 <- lapply(sim_results_igraph_indmod_base13, function(x)
-                                                                             evcent(x)$vector)
+   evcent_dyadic_ind_mod_base_13 <- lapply(igraph_list,
+                                           function(x)
+                                               evcent(x)$vector)
 
-   ordered_evcent_dyadic_ind_mod_base_13 <- lapply(evcent_dyadic_ind_mod_base_13,
-                                                   function (x)
-                                                       order(x, decreasing=TRUE)
-                                                   )
+   ordered_evcent_dyadic_ind_mod_base_13 <-
+       lapply(evcent_dyadic_ind_mod_base_13,
+              function (x)
+                  order(x, decreasing=TRUE)
+              )
 
-   top300_evcent_dyadic_ind_mod_base_13 <- lapply(ordered_evcent_dyadic_ind_mod_base_13,
-                                                  function (x)
-                                                      x[1:300]
-                                                  )
+   top300_evcent_dyadic_ind_mod_base_13 <-
+       lapply(ordered_evcent_dyadic_ind_mod_base_13,
+              function (x)
+                  x[1:300]
+              )
 
-   freq_top300_evcent_dyadic_ind_mod_base_13 <- table(unlist(top300_evcent_dyadic_ind_mod_base_13))
-   sort_top300_evcent_dyadic_ind_mod_base_13 <- sort(freq_top300_evcent_dyadic_ind_mod_base_13,
+   freq_top300_evcent_dyadic_ind_mod_base_13 <-
+       table(unlist(top300_evcent_dyadic_ind_mod_base_13))
+   sort_top300_evcent_dyadic_ind_mod_base_13 <-
+       sort(freq_top300_evcent_dyadic_ind_mod_base_13,
                                                      decreasing=TRUE)
    length(sort_top300_evcent_dyadic_ind_mod_base_13)
 
