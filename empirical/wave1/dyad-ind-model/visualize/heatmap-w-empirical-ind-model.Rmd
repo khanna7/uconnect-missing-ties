@@ -16,8 +16,7 @@ rm(list=ls())
 and reading in the data.
 ```{r}
 ## data
-#net_list <- readRDS("sim_from_fitted_ergm_objects_in_serial_hundred_dyad_ind_base_13.RDS")
-net_list <- readRDS("sim_from_fitted_ind_ergm_objects_in_serial_nonodemix.RDS")
+net_list <- readRDS("../sim-from-ergm/imputed_10_nets_w_nodemix.RDS")
 ```
 
 ## Processsing the Data
@@ -42,7 +41,7 @@ rownames(freq) <- net%v%"vertex.names"
 ```
 
 ## Plot
-Now plot it's image. 
+Now plot its image. 
 
 ```{r}
 image(freq, col=gray(32:0/32))
