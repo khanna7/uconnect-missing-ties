@@ -27,4 +27,6 @@
    summary(as.numeric(mat_freq_top300_btwn_dyadic_ind_mod_base_13[resp_rownames,]))
    sd(as.numeric(mat_freq_top300_btwn_dyadic_ind_mod_base_13[resp_rownames,]))
    
+   ## save
+   saveRDS(names.in.num, file="btwn_top300_ids.RDS")
    

@@ -12,8 +12,12 @@
       freq_top300_bridge_dyadic_ind_mod_base_13
       length(freq_top300_bridge_dyadic_ind_mod_base_13)
       length(sort_top300_bridge_dyadic_ind_mod_base_13)
-      length(which(names(sort_top300_bridge_dyadic_ind_mod_base_13) <= 
-                     298))
+      names.in.num <- as.numeric(
+        names(sort_top300_bridge_dyadic_ind_mod_base_13)
+      )
+
+      length(names.in.num)
+      length(which(names.in.num <= 298))
    
    ## compute mean and variance of numebr of occurences
    mat_freq_top300_bridging_dyadic_ind_mod_base_13 <- as.matrix(freq_top300_bridge_dyadic_ind_mod_base_13)
@@ -30,5 +34,6 @@
    summary(as.numeric(mat_freq_top300_bridging_dyadic_ind_mod_base_13[resp_rownames,]))
    sd(as.numeric(mat_freq_top300_bridging_dyadic_ind_mod_base_13[resp_rownames,]))
    
-   
+   ## save
+      saveRDS(names.in.num, file="bridging_top300_ids.RDS")
    
