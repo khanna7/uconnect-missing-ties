@@ -17,3 +17,4 @@
 
    ## save 
    saveRDS(scores, file="bridging_scores_ind_imp_igraphs_26to50.RDS")
+xk
