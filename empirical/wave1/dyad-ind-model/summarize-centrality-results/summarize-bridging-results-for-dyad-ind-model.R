@@ -36,4 +36,4 @@
    
    ## save
       saveRDS(names.in.num, file="bridging_top300_ids.RDS")
-   
+      save.image(file="bridging_results.RData")

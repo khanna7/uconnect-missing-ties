@@ -2,10 +2,10 @@
 rm(list=ls())
   
    ## data
-   btwn_top300 <- readRDS("btwn_top300_ids.RDS")
-   evcent_top300 <- readRDS("evcent_top300_ids.RDS")
-   bridging_top300 <- readRDS("bridging_top300_ids.RDS")
-   kp_top300 <- readRDS("set300_kp_dyad_ind.RDS")
+   btwn_top300 <- as.numeric(readRDS("btwn_top300_ids.RDS"))
+   evcent_top300 <- as.numeric(readRDS("evcent_top300_ids.RDS"))
+   bridging_top300 <- as.numeric(readRDS("bridging_top300_ids.RDS"))
+   kp_top300 <- as.numeric(readRDS("set300_kp_dyad_ind.RDS"))
 
    ## overlaps
    length(intersect(btwn_top300, evcent_top300))

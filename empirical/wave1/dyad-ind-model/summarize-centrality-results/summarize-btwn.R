@@ -29,4 +29,4 @@
    
    ## save
    saveRDS(names.in.num, file="btwn_top300_ids.RDS")
-   
+   save.image(file="btwn_results.RData")

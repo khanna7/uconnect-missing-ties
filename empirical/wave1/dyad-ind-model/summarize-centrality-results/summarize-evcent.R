@@ -31,3 +31,4 @@
    
    ## save
    saveRDS(names.in.num, file="evcent_top300_ids.RDS")
+   save.image(file="evcent_results.RData")
