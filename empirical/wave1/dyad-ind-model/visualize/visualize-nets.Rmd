@@ -79,12 +79,19 @@ colnames(imp_deg_dist) <- c("degrees", "frequency", "network")
 deg_dist_data <- rbind(control_deg_dist, imp_deg_dist)
 
 
+# ggplot(deg_dist_data, aes(x=degrees, 
+#                           y=frequency/network.size(r0_net), 
+#                           fill=network))+
+#     geom_bar(position="dodge", stat="identity")+
+#     ylim(0, 0.05)+
+#     xlab("degrees")+ylab("proportion of nodes")
+
 ggplot(deg_dist_data, aes(x=degrees, 
-                          y=frequency/network.size(r0_net), 
-                          fill=network))+
-    geom_bar(position="dodge", stat="identity")+
-    ylim(0, 0.05)+
-    xlab("degrees")+ylab("proportion of nodes")
+                          #frequency/network.size(r0_net), 
+                          color=network))+
+    geom_freqpoly(binwidth=25)+
+    #ylim(0, 0.05)+
+    xlab("Degrees")+ylab("Number of nodes")
 ```
 
 ```{r, echo=FALSE, results='hide'}
