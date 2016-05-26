@@ -12,6 +12,7 @@ rm(list=ls())
    suppressPackageStartupMessages(library(sna))
    suppressPackageStartupMessages(library(network))
    suppressPackageStartupMessages(library(ggplot2))
+ suppressPackageStartupMessages(library(reshape2))
 ```
 and reading in the data.
 ```{r}
@@ -43,8 +44,21 @@ rownames(freq) <- net%v%"vertex.names"
 ## Plot
 Now plot its image. 
 
+```{r, results='hide'}
+  customize_image_axes <- function(prop.resp){
+  
+  axis(1, at=prop.resp/2, labels="respondents")
+  axis(1, at=(prop.resp+(1-prop.resp)/2), labels="nonrespondents")
+  axis(1, at=prop.resp, labels="")
+  axis(2, at=prop.resp/2, labels="respondents")
+  axis(2, at=(prop.resp+(1-prop.resp)/2), labels="nonrespondents")
+  axis(2, at=prop.resp, labels="")
+}
+```  
+
 ```{r}
-image(freq, col=gray(32:0/32))
+image(freq, col=gray(32:0/32), xaxt="n", yaxt="n")
+customize_image_axes(prop.resp=298/885)
 ```
 
 The x-axis shows respondents to non-respondents from left to right, and the y-axis shows respondents to nonrespondents from the bottom to the top. Hence, in 
@@ -53,21 +67,26 @@ every case, the **upper right corner** is nonrespondent-nonrespondent, and what 
 Image plot, consisting of 50 respondents and 50 nonrespondets is below.
 ```{r}
 freq_small <- freq[273:323, 273:323]
-image(freq_small, col=gray(32:0/32))
+image(freq_small, col=gray(32:0/32), xaxt="n", yaxt="n")
+customize_image_axes(prop.resp=25/50)
 ```
 
 For the sake of comparison, an image plot with only respondents:
   
   ```{r}
 freq_resp <- freq[100:150, 100:150]
-image(freq_resp, col=gray(32:0/32))
+image(freq_resp, col=gray(32:0/32), xaxt="n", yaxt="n")
+customize_image_axes(prop.resp=25/50)
 ```
 
 And with only nonrespondents:
 
 ```{r}
 freq_nonresp <- freq[325:375, 325:375]
-image(freq_nonresp, col=gray(32:0/32))
+image(freq_nonresp, col=gray(32:0/32), xaxt="n", yaxt="n")
+customize_image_axes(prop.resp=25/50)
+
+# freq_melt <- melt(freq)
+# #image(freq_nonresp, col=gray(32:0/32))
+# qplot(x=Var1, y=Var2, data=freq_melt, geom="tile")
 ```
-
-
