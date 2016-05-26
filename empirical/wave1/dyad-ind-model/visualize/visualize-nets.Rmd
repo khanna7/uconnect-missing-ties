@@ -86,3 +86,21 @@ ggplot(deg_dist_data, aes(x=degrees,
     ylim(0, 0.05)+
     xlab("degrees")+ylab("proportion of nodes")
 ```
+
+```{r, echo=FALSE, results='hide'}
+  r0_net_no_isolates_ids <- which(degree(r0_net, gmode="graph") > 0)
+  #r0_net_no_isolates_ids <- (r0_net %v% "vertex.names")[-c(r0_net_isolates_ids)] 
+  imp_to_plot_isolates_ids <- which(degree(imp_to_plot, gmode="graph") > 0)
+
+  r0_net_no_isolates <- get.inducedSubgraph(r0_net, v=r0_net_no_isolates_ids)
+
+  imp_to_plot_no_isolates <- get.inducedSubgraph(imp_to_plot, v=r0_net_no_isolates_ids)
+```
+
+```{r, echo=FALSE, results='asis'}
+  ggnet2(r0_net_no_isolates, color="respondent", size=1,
+         palette = "Set2")+ggtitle("Raw Data (Isolates not shown)")
+
+  ggnet2(imp_to_plot_no_isolates, color="respondent", size=1,
+         palette = "Set2")+ggtitle("Imputed Data (Isolates not shown)")
+```
