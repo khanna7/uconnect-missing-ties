@@ -1,0 +1,132 @@
+
+
+```{r, echo=FALSE}
+
+rm(list=ls())
+
+library(ggplot2)
+load("../summarize-centrality-results/btwn_results.RData")
+load("../summarize-centrality-results/evcent_results.RData")
+load("../summarize-centrality-results/bridging_results.RData")
+load("../summarize-centrality-results/sort_top300_kp_dyadic_ind_mod_base_13_try1.RData")
+```
+
+Distributions of occurence of (top 300) PCA's according to each metric:
+
+```{r, echo=FALSE}
+btwn_results <- as.data.frame(as.numeric(unlist(freq_top300_btwn_dyadic_ind_mod_base_13)))
+btwn_results <- cbind(btwn_results, "betweenness")
+colnames(btwn_results) <- c("freq", "metric")
+
+evcent_results <- as.data.frame(as.numeric(freq_top300_evcent_dyadic_ind_mod_base_13))
+evcent_results <- cbind(evcent_results, "eigenvector")
+colnames(evcent_results) <- c("freq", "metric")
+
+bridging_results <- as.data.frame(as.numeric(freq_top300_bridge_dyadic_ind_mod_base_13))
+bridging_results <- cbind(bridging_results, "bridging")
+colnames(bridging_results) <- c("freq", "metric")
+
+kp_results <- as.data.frame(as.numeric(tab_kp_dyadic_ind_mod_base_13))
+kp_results <- cbind(kp_results, "keyplayer")
+colnames(kp_results) <- c("freq", "metric")
+
+freq_results <- rbind(btwn_results, evcent_results, bridging_results, kp_results)
+ggplot(freq_results, aes(x=freq, color=metric))+geom_freqpoly(binwidth=1)+
+  ggtitle("Distribution of Occurence of PCA's across the imputed networks")+
+  scale_x_continuous(breaks=seq(0, 10, 2))
+
+```
+
+With distribution of respondents:
+
+```{r, echo=FALSE, results=FALSE}
+
+btwn_names <- as.numeric(as.numeric(names(freq_top300_btwn_dyadic_ind_mod_base_13)))
+resp_btwn_ids <- which(btwn_names <= 298)
+resp_btwn_results <- btwn_results[resp_btwn_ids,]
+
+btwn_results <- cbind(btwn_results, "all")
+resp_btwn_results <- cbind(resp_btwn_results, "respondents")
+
+colnames(btwn_results) <- c("freq", "metric", "PCA_set")
+colnames(resp_btwn_results) <- c("freq", "metric", "PCA_set")
+
+results <- rbind(resp_btwn_results, btwn_results)
+#results$freq <- results$freq/10
+
+ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+  scale_x_continuous(breaks=seq(0, 10, 2))+
+  ggtitle("PCA's selected by betweenness centrality on imputed networks")+
+  xlab("number of imputed networks")+
+  ylab("number of nodes")
+
+```
+
+```{r, echo=FALSE, results=FALSE}
+
+evcent_names <- as.numeric(as.numeric(names(freq_top300_evcent_dyadic_ind_mod_base_13)))
+resp_evcent_ids <- which(evcent_names <= 298)
+resp_evcent_results <- evcent_results[resp_evcent_ids,]
+
+evcent_results <- cbind(evcent_results, "all")
+resp_evcent_results <- cbind(resp_evcent_results, "respondents")
+
+colnames(evcent_results) <- c("freq", "metric", "PCA_set")
+colnames(resp_evcent_results) <- c("freq", "metric", "PCA_set")
+
+results <- rbind(resp_evcent_results, evcent_results)
+#results$freq <- results$freq/10
+
+ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+  scale_x_continuous(breaks=seq(0, 10, 2))+
+  ggtitle("PCA's selected by eigenvector centrality on imputed networks")+
+  xlab("number of imputed networks")+
+  ylab("number of nodes")
+
+```
+
+```{r, echo=FALSE, results=FALSE}
+
+bridging_names <- as.numeric(as.numeric(names(freq_top300_bridge_dyadic_ind_mod_base_13)))
+resp_bridging_ids <- which(bridging_names <= 298)
+resp_bridging_results <- bridging_results[resp_bridging_ids,]
+
+bridging_results <- cbind(bridging_results, "all")
+resp_bridging_results <- cbind(resp_bridging_results, "respondents")
+
+colnames(bridging_results) <- c("freq", "metric", "PCA_set")
+colnames(resp_bridging_results) <- c("freq", "metric", "PCA_set")
+
+results <- rbind(resp_bridging_results, bridging_results)
+#results$freq <- results$freq/10
+
+ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+  scale_x_continuous(breaks=seq(0, 10, 2))+
+  ggtitle("PCA's selected by bridging on imputed networks")+
+  xlab("number of imputed networks")+
+  ylab("number of nodes")
+
+```
+
+```{r, echo=FALSE, results=FALSE}
+
+kp_names <- as.numeric(names(tab_kp_dyadic_ind_mod_base_13))
+resp_kp_ids <- which(kp_names <= 298)
+resp_kp_results <- kp_results[resp_kp_ids,]
+
+kp_results <- cbind(kp_results, "all")
+resp_kp_results <- cbind(resp_kp_results, "respondents")
+
+colnames(kp_results) <- c("freq", "metric", "PCA_set")
+colnames(resp_kp_results) <- c("freq", "metric", "PCA_set")
+
+results <- rbind(resp_kp_results, kp_results)
+#results$freq <- results$freq/10
+
+ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+  scale_x_continuous(breaks=seq(0, 10, 2))+
+  ggtitle("PCA's selected by keyplayer on imputed networks")+
+  xlab("proportion of imputed networks")+
+  ylab("number of nodes")
+
+```
