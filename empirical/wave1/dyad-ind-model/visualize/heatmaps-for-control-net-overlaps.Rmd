@@ -12,6 +12,7 @@ load("../../control-net/control-net-ovelap.RData")
 ### Data matrix
     ##### All PCA's
 ```{r, echo=FALSE}
+## data
 norm_btwn_evcent <- btwn_evcent/length(btwn_885nodes)
 norm_btwn_bridging <- btwn_bridging/length(btwn_885nodes)
 norm_btwn_kp <- btwn_kp/length(btwn_885nodes)
@@ -30,8 +31,6 @@ norm_kp_bridging <- bridging_kp/length(kp_885nodes_set300)
 ```
 
 ```{r, echo=FALSE}
-## read data
-
 ## form matrix
    control_overlap_matrix <- as.data.frame(matrix(1, nrow=4, ncol=4))
    control_overlap_matrix[1, 2:4] <- c(norm_btwn_evcent, norm_btwn_bridging, norm_btwn_kp)
@@ -47,8 +46,8 @@ norm_kp_bridging <- bridging_kp/length(kp_885nodes_set300)
 ```
 
     ##### Respondents selected as PCA's
-    ```{r, echo=FALSE}   
-## read data
+    ```{r, echo=FALSE}  
+## data
 resp_norm_btwn_evcent <- resp_btwn_evcent/length(resp_btwn_885nodes)
 resp_norm_btwn_bridging <- resp_btwn_bridging/length(resp_btwn_885nodes)
 resp_norm_btwn_kp <- resp_btwn_kp/length(resp_btwn_885nodes)
