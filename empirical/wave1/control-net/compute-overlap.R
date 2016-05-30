@@ -17,21 +17,29 @@
    
    ## compute overlaps
       ## PCA sets
-      length(intersect(btwn_885nodes, evcent_885nodes))
-      length(intersect(btwn_885nodes, bridging_885nodes))
-      length(intersect(btwn_885nodes, kp_885nodes_set300))
+      btwn_evcent <- length(intersect(btwn_885nodes, evcent_885nodes))
+      btwn_bridging <- length(intersect(btwn_885nodes, bridging_885nodes))
+      btwn_kp <- length(intersect(btwn_885nodes, kp_885nodes_set300))
 
-      length(intersect(evcent_885nodes, bridging_885nodes))
-      length(intersect(evcent_885nodes, kp_885nodes_set300))
+      evcent_bridging <- length(intersect(evcent_885nodes, bridging_885nodes))
+      evcent_kp <-  length(intersect(evcent_885nodes, kp_885nodes_set300))
 
-      length(intersect(bridging_885nodes, kp_885nodes_set300))
+      bridging_kp <- length(intersect(bridging_885nodes, kp_885nodes_set300))
    
       ## respondents in the PCA sets
-      length(intersect(resp_btwn_885nodes, resp_evcent_885nodes))
-      length(intersect(resp_btwn_885nodes, resp_bridging_885nodes))
-      length(intersect(resp_btwn_885nodes, resp_kp_885nodes))
+      resp_btwn_evcent <- length(intersect(resp_btwn_885nodes,
+                                            resp_evcent_885nodes))
+      resp_btwn_bridging <- length(intersect(resp_btwn_885nodes,
+                                             resp_bridging_885nodes))
+      resp_btwn_kp <- length(intersect(resp_btwn_885nodes, resp_kp_885nodes))
    
-      length(intersect(resp_evcent_885nodes, resp_bridging_885nodes))
-      length(intersect(resp_evcent_885nodes, resp_kp_885nodes))
+      resp_evcent_bridging <- length(intersect(resp_evcent_885nodes,
+                                               resp_bridging_885nodes))
+      resp_evcent_kp <- length(intersect(resp_evcent_885nodes,
+                                         resp_kp_885nodes))
    
-      length(intersect(resp_bridging_885nodes, resp_kp_885nodes))
+      resp_bridging_kp <- length(intersect(resp_bridging_885nodes,
+                                           resp_kp_885nodes))
+
+   ## save object
+      save.image(file="control-net-ovelap.RData")
