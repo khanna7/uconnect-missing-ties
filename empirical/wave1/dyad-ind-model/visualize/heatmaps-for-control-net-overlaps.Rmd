@@ -9,8 +9,9 @@ library(ggplot2)
 load("../../control-net/control-net-ovelap.RData")
 ```
 
-### Data matrix
-    ##### All PCA's
+###Data
+
+##### All PCA's
 ```{r, echo=FALSE}
 ## data
 norm_btwn_evcent <- btwn_evcent/length(btwn_885nodes)
@@ -45,8 +46,8 @@ norm_kp_bridging <- bridging_kp/length(kp_885nodes_set300)
    control_overlap_matrix
 ```
 
-    ##### Respondents selected as PCA's
-    ```{r, echo=FALSE}  
+##### Respondents selected as PCA's
+```{r, echo=FALSE}  
 ## data
 resp_norm_btwn_evcent <- resp_btwn_evcent/length(resp_btwn_885nodes)
 resp_norm_btwn_bridging <- resp_btwn_bridging/length(resp_btwn_885nodes)
