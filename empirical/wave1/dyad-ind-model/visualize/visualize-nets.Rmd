@@ -9,6 +9,7 @@ rm(list=ls())
    suppressPackageStartupMessages(library(network))
    suppressPackageStartupMessages(library(ergm))
    suppressPackageStartupMessages(library(ggplot2))
+   suppressPackageStartupMessages(library(gridExtra))
 
 ```
 
@@ -111,3 +112,24 @@ ggplot(deg_dist_data, aes(x=degrees,
   ggnet2(imp_to_plot_no_isolates, color="respondent", size=1,
          palette = "Set2")+ggtitle("Imputed Data (Isolates not shown)")
 ```
+
+
+```{r, echo=FALSE, results='asis'}
+  ggnet2(r0_net_no_isolates, color="respondent", size=1,
+         palette = "Set2")+ggtitle("Raw Data (Isolates not shown)")
+
+  ggnet2(imp_to_plot_no_isolates, color="respondent", size=1,
+         palette = "Set2")+ggtitle("Imputed Data (Isolates not shown)")
+```
+
+```{r, echo=FALSE, results='asis'}
+
+raw_p <- ggnet2(r0_net_no_isolates, color="respondent", size=1,
+            palette = "Set2")+ggtitle("Raw Data")
+
+imp_p <- ggnet2(imp_to_plot_no_isolates, color="respondent", size=1,
+            palette = "Set2")+ggtitle("Imputed Data")
+
+pdf(file="nets_2row.pdf")
+grid.arrange(raw_p, imp_p, nrow=2)
+dev.off()
