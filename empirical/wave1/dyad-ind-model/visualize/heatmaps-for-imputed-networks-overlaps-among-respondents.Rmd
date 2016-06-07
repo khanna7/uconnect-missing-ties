@@ -60,11 +60,13 @@ pdf(file="imputed_networks_overlaps.pdf")
 
 par(mfrow=c(2,1))
 
-image(as.matrix(cutoffs_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n")
+image(as.matrix(cutoffs_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n", 
+      main="All PCA's")
 axis(1, at=positions, labels=labels)
 axis(2, at=positions, labels=labels)
 
-image(as.matrix(resp_cutoffs_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n")
+image(as.matrix(resp_cutoffs_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n",
+      main="Respondents in PCA's Only")
 axis(1, at=positions, labels=labels)
 axis(2, at=positions, labels=labels)
 
