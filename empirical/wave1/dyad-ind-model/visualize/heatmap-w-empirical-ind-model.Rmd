@@ -90,3 +90,16 @@ customize_image_axes(prop.resp=25/50)
 # #image(freq_nonresp, col=gray(32:0/32))
 # qplot(x=Var1, y=Var2, data=freq_melt, geom="tile")
 ```
+
+```{r}
+pdf(file="test-heatmaps.pdf", width=7, height=10)
+par(mfrow=c(2, 1))
+
+image(freq, col=gray(32:0/32), xaxt="n", yaxt="n")
+customize_image_axes(prop.resp=298/885)
+
+image(freq_small, col=gray(32:0/32), xaxt="n", yaxt="n")
+customize_image_axes(prop.resp=25/50)
+
+dev.off()
+```
