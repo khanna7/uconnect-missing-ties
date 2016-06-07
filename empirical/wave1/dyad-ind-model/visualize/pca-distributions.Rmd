@@ -5,6 +5,8 @@
 rm(list=ls())
 
 library(ggplot2)
+library(gridExtra)
+
 load("../summarize-centrality-results/btwn_results.RData")
 load("../summarize-centrality-results/evcent_results.RData")
 load("../summarize-centrality-results/bridging_results.RData")
@@ -31,9 +33,9 @@ kp_results <- cbind(kp_results, "keyplayer")
 colnames(kp_results) <- c("freq", "metric")
 
 freq_results <- rbind(btwn_results, evcent_results, bridging_results, kp_results)
-ggplot(freq_results, aes(x=freq, color=metric))+geom_freqpoly(binwidth=1)+
-  ggtitle("Distribution of Occurence of PCA's across the imputed networks")+
-  scale_x_continuous(breaks=seq(0, 10, 2))
+p1 <- ggplot(freq_results, aes(x=freq, color=metric))+geom_freqpoly(binwidth=1)+
+        ggtitle("All four metrics")+
+          scale_x_continuous(breaks=seq(0, 10, 2))
 
 ```
 
@@ -54,11 +56,11 @@ colnames(resp_btwn_results) <- c("freq", "metric", "PCA_set")
 results <- rbind(resp_btwn_results, btwn_results)
 #results$freq <- results$freq/10
 
-ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
-  scale_x_continuous(breaks=seq(0, 10, 2))+
-  ggtitle("PCA's selected by betweenness centrality on imputed networks")+
-  xlab("number of imputed networks")+
-  ylab("number of nodes")
+p2 <- ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+        scale_x_continuous(breaks=seq(0, 10, 2))+
+          ggtitle("Betweenness")+
+            xlab("number of imputed networks")+
+              ylab("number of nodes")
 
 ```
 
@@ -77,11 +79,11 @@ colnames(resp_evcent_results) <- c("freq", "metric", "PCA_set")
 results <- rbind(resp_evcent_results, evcent_results)
 #results$freq <- results$freq/10
 
-ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
-  scale_x_continuous(breaks=seq(0, 10, 2))+
-  ggtitle("PCA's selected by eigenvector centrality on imputed networks")+
-  xlab("number of imputed networks")+
-  ylab("number of nodes")
+p3 <- ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+        scale_x_continuous(breaks=seq(0, 10, 2))+
+          ggtitle("Eigenvector")+
+            xlab("number of imputed networks")+
+              ylab("number of nodes")
 
 ```
 
@@ -100,11 +102,11 @@ colnames(resp_bridging_results) <- c("freq", "metric", "PCA_set")
 results <- rbind(resp_bridging_results, bridging_results)
 #results$freq <- results$freq/10
 
-ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
-  scale_x_continuous(breaks=seq(0, 10, 2))+
-  ggtitle("PCA's selected by bridging on imputed networks")+
-  xlab("number of imputed networks")+
-  ylab("number of nodes")
+p4 <- ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+        scale_x_continuous(breaks=seq(0, 10, 2))+
+          ggtitle("Bridging")+
+            xlab("number of imputed networks")+
+                ylab("number of nodes")
 
 ```
 
@@ -123,10 +125,16 @@ colnames(resp_kp_results) <- c("freq", "metric", "PCA_set")
 results <- rbind(resp_kp_results, kp_results)
 #results$freq <- results$freq/10
 
-ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
-  scale_x_continuous(breaks=seq(0, 10, 2))+
-  ggtitle("PCA's selected by keyplayer on imputed networks")+
-  xlab("proportion of imputed networks")+
-  ylab("number of nodes")
+p5 <- ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
+        scale_x_continuous(breaks=seq(0, 10, 2))+
+          ggtitle("Keyplayer")+
+            xlab("numberof imputed networks")+
+              ylab("number of nodes")
 
+```
+
+```{r, echo=FALSE}
+pdf(file="cutoffs.pdf")
+grid.arrange(p1, p2, p3, p4, p5, ncol=2)
+dev.off()
 ```
