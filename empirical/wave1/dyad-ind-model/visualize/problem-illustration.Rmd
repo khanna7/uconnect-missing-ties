@@ -1,0 +1,21 @@
+## illustrate the problem at hand
+
+```{r, echo=FALSE}
+rm(list=ls())
+## Visualize heatmap for imputed graphs
+  prob_mat <- matrix(0, nrow=2, ncol=2)
+  #prob_mat[2,2] <- 1.5
+  dim(prob_mat)
+
+  pdf(file="problem-illustration.pdf")
+  image(prob_mat, col=gray(1), xaxt="n", yaxt="n")
+  axis(1, at=c(0, 0.5, 1.0), labels=c("respondents", "", "nonrespondents"))
+  axis(2, at=c(0, 0.5, 1.0), labels=c("respondents", "", "nonrespondents"))
+  abline(h=0.5, v=0.5)
+  abline(v=c(-0.5, 1.5), h=c(-0.5, 1.5))
+  text(0, 0, "observed")
+  text(1, 0, "observed")
+  text(0, 1, "observed")
+  text(1,1, "unobserved")
+  dev.off()
+```
