@@ -12,6 +12,6 @@
                                            function(x)
                                                keyplayer(x, k=300,
                                                          tol=0,
-                                                         maxsex=24*3600))
+                                                         maxsec=24*3600))
    ## save 
    save.image(file="sort_top300_kp_dyadic_ind_mod_base_13.RData")
