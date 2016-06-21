@@ -1,8 +1,44 @@
-## compute overlap among PCA's on control network
+## summarize centrality results
+  ## (betweenness, eigenvector centrality, keyplayer, bridging) for
+  ## control network  (885 nodes, 29700 ties).
 
-   rm(list=ls())
-   library(igraph)
+  rm(list=ls())
 
+  ## libraries and data
+  library(igraph)
+  load("centrality_for_control_net_w_885nodes.RData")
+
+  ## summarize results
+
+     ## betweenness
+     ordered.btwn_885nodes <- order(btwn_885nodes, decreasing=TRUE)
+     top300.btwn_885nodes <- ordered.btwn_885nodes[1:300]
+     length(which(as.numeric(top300.btwn_885nodes) > 298))
+
+     saveRDS(as.numeric(top300.btwn_885nodes),
+             file="control_885nodes_btwn_top300.RDS")
+
+     ## eigenvector centrality
+     ordered.evcent_885nodes <- order(evcent_885nodes$vector, decreasing=TRUE)
+     top300.evcent_885nodes <- ordered.evcent_885nodes[1:300]
+     length(which(as.numeric(top300.evcent_885nodes) > 298))
+     saveRDS(as.numeric(top300.evcent_885nodes),
+             file="control_885nodes_evcent_top300.RDS")
+
+     ## keyplayer
+     print(kp_885nodes_set300_0tol, full=T)
+     length(which(as.numeric(kp_885nodes_set300_0tol) > 298))
+     saveRDS(as.numeric(kp_885nodes_set300_0tol),
+             file="control_885nodes_kp_set300.RDS")
+
+
+     ## bridging
+     ordered.bridging_885nodes <- order(bridging_885nodes, decreasing=TRUE)
+     top300.bridging_885nodes <- ordered.bridging_885nodes[1:300]
+     length(which(as.numeric(top300.bridging_885nodes) > 298))
+     saveRDS(top300.bridging_885nodes, file="control_885nodes_bridging_top300.RDS")
+
+   ## COMPUTE OVERLAPS
    ## make sure names are of 'numeric' class
    btwn_885nodes <- as.numeric(readRDS("control_885nodes_btwn_top300.RDS"))
    evcent_885nodes <- as.numeric(readRDS("control_885nodes_evcent_top300.RDS"))
