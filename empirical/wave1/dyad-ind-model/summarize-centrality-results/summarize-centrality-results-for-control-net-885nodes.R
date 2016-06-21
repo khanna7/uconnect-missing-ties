@@ -1,4 +1,4 @@
-  ## summarize centrality results
+## summarize centrality results
   ## (betweenness, eigenvector centrality, keyplayer, bridging) for
   ## control network  (885 nodes, 29700 ties).
 
@@ -6,7 +6,7 @@
 
   ## libraries and data
   library(igraph)
-  load("centrality_for_control_net_w_885nodes.RData")
+  load("../../control-net/centrality_for_control_net_w_885nodes.RData")
 
   ## summarize results
 
@@ -26,7 +26,7 @@
              file="control_885nodes_evcent_top300.RDS")
 
      ## keyplayer
-     print(kp_885nodes_set300, full=T)
+     print(kp_885nodes_set300_0tol, full=T)
      length(which(as.numeric(kp_885nodes_set300) > 298))
      saveRDS(as.numeric(kp_885nodes_set300),
              file="control_885nodes_kp_set300.RDS")
