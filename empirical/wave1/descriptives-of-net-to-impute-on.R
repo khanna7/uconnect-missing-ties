@@ -7,7 +7,7 @@
    library(sna)
    
    ## data
-   load("fitted_ergm_imputed_network.RData")
+   load("dyad-ind-model/fitted_ergm_imputed_network.RData")
    node_data <- read.csv("/project/khanna7/Projects/UConnect/UConnect_FB/FB_W1_Identified_4.15.2015/fb_graph_nodes.csv")
 
    ## save network for use in futire analyses
@@ -67,8 +67,20 @@
          ## city chicago
          table(imp_nodes_data$fb_city_chicago, exclude=NULL)
          table(respondent_data$fb_city_chicago, exclude=NULL)
+         table(alter_data$fb_city_chicago, exclude=NULL)
+         ## city
+         table(imp_nodes_data$fb_city, exclude=NULL)
+         table(respondent_data$fb_city, exclude=NULL)
+         respondent_data$fb_city[which(respondent_data$fb_city != "chicago")]         
          table(alter_data$fb_city_chicago, exclude=NULL) 
-         ## PrEP know
+         
+         xtabs(~ factor(respondent_data$fb_city_chicago, exclude=NULL)+
+                 factor(respondent_data$fb_state_illinois, exclude=NULL))
+         
+         xtabs(~ factor(respondent_data$fb_state, exclude=NULL)+
+                        factor(respondent_data$fb_city_chicago, exclude=NULL))
+   
+   ## PrEP know
          table(imp_nodes_data$prepknow2, exclude=NULL)
          table(respondent_data$prepknow2, exclude=NULL)
          table(alter_data$prepknow2, exclude=NULL)    

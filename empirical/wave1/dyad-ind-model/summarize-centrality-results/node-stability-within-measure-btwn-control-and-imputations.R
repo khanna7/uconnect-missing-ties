@@ -37,7 +37,8 @@ load("resp_pcas_after_cutoffs.RData")
                                                 resp_bridging_after_cutoff)
    length(resp_sel_in_control_imputed_bridging)
 
-   bridging_control_imputed <- intersect(bridging_control_885nodes, bridging_after_cutoff)
+   bridging_control_imputed <- intersect(bridging_control_885nodes, 
+                                         bridging_after_cutoff)
    length(bridging_control_imputed)
 
    

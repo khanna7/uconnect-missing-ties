@@ -46,7 +46,7 @@ resp_norm_kp_bridging <- resp_bridging_kp_cutoff/length(resp_kp_after_cutoff)
 ### Plot
 ```{r, echo=FALSE}
 positions <- c(0, 0.33, 0.66, 1)
-labels <- c("btwn", "evcent", "bridging", "keyplayer")
+labels <- c("BT", "EV", "BR", "KP")
 image(as.matrix(resp_cutoffs_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n")
 axis(1, at=positions, labels=labels)
 axis(2, at=positions, labels=labels)

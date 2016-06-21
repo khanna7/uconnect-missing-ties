@@ -85,6 +85,8 @@ p3 <- ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
             xlab("number of imputed networks")+
               ylab("number of nodes")
 
+p3
+
 ```
 
 ```{r, echo=FALSE, results=FALSE}
@@ -130,6 +132,8 @@ p5 <- ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
           ggtitle("Keyplayer")+
             xlab("numberof imputed networks")+
               ylab("number of nodes")
+
+p5
 
 ```
 

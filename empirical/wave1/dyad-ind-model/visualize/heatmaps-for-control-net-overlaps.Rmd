@@ -82,7 +82,7 @@ resp_norm_kp_bridging <- resp_bridging_kp/length(resp_kp_885nodes)
 ### Plot
 ```{r, echo=FALSE}
 positions <- c(0, 0.33, 0.66, 1)
-labels <- c("btwn", "evcent", "bridging", "keyplayer")
+labels <- c("BT", "EV", "BR", "KP")
 image(as.matrix(control_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n", 
       main="Overlaps among PCA's on raw network")
 axis(1, at=positions, labels=labels)
@@ -92,7 +92,7 @@ axis(2, at=positions, labels=labels)
 
 ```{r, echo=FALSE}
 positions <- c(0, 0.33, 0.66, 1)
-labels <- c("btwn", "evcent", "bridging", "keyplayer")
+#labels <- c("btwn", "evcent", "bridging", "keyplayer")
 image(as.matrix(resp_control_overlap_matrix), 
       col=gray(32:0/32), xaxt="n", yaxt="n", 
       main="Overlaps among Respondents in PCA's on raw network")
