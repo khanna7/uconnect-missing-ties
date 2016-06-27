@@ -104,19 +104,19 @@ axis(2, at=positions, labels=labels)
 ```{r, echo=FALSE}
 ## save pdf
 
-pdf(file="overlap_in_raw_net.pdf")
+png(file="overlap_in_raw_net.png")
 
-par(mfrow=c(2,1))
+#par(mfrow=c(2,1))
 image(as.matrix(control_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n", 
       main="All PCA's")
 axis(1, at=positions, labels=labels)
 axis(2, at=positions, labels=labels)
 
-image(as.matrix(resp_control_overlap_matrix), 
-      col=gray(32:0/32), xaxt="n", yaxt="n", 
-      main="Respondents in PCA's only")
-axis(1, at=positions, labels=labels)
-axis(2, at=positions, labels=labels)
+# image(as.matrix(resp_control_overlap_matrix), 
+#       col=gray(32:0/32), xaxt="n", yaxt="n", 
+#       main="Respondents in PCA's only")
+# axis(1, at=positions, labels=labels)
+# axis(2, at=positions, labels=labels)
 
 dev.off()
 
