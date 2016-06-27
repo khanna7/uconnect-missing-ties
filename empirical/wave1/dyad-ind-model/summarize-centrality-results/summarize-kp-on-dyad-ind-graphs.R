@@ -16,7 +16,8 @@
    length(sort_tab_kp_dyadic_ind_mod_base_13)
    names.in.num <- as.numeric(names(sort_tab_kp_dyadic_ind_mod_base_13))
    length(which(names.in.num <= 298))
-   
+   length(names.in.num)
+
    ## compute mean and variance of numebr of occurences
    mat_tab_kp_dyadic_ind_mod_base_13 <- as.matrix(tab_kp_dyadic_ind_mod_base_13)
    summary(as.numeric(mat_tab_kp_dyadic_ind_mod_base_13))
@@ -28,9 +29,15 @@
    rownames_of_tab_mat <- as.numeric(rownames(mat_tab_kp_dyadic_ind_mod_base_13)) 
    resp_rownames <- which(rownames_of_tab_mat <= 298)
    length(resp_rownames)
-   
+   nonresp_rownames <- which(rownames_of_tab_mat > 298)
+   length(nonresp_rownames)
+
+
    summary(as.numeric(mat_tab_kp_dyadic_ind_mod_base_13[resp_rownames,]))
    sd(as.numeric(mat_tab_kp_dyadic_ind_mod_base_13[resp_rownames,]))
+
+   summary(as.numeric(mat_tab_kp_dyadic_ind_mod_base_13[nonresp_rownames,]))
+   sd(as.numeric(mat_tab_kp_dyadic_ind_mod_base_13[nonresp_rownames,]))
 
    ## save
    save.image(file="sort_top300_kp_dyadic_ind_mod_base_13_try1.RData")

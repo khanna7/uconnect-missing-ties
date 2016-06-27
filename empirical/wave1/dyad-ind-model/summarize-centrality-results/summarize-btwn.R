@@ -12,6 +12,7 @@
    length(names.in.num)
    resp <- which(names.in.num <= 298) #num respondents
    length(resp)
+   length(which(names.in.num > 298))
 
    ## compute mean and variance of numebr of occurences
    mat_freq_top300_btwn_dyadic_ind_mod_base_13 <- as.matrix(freq_top300_btwn_dyadic_ind_mod_base_13)
@@ -23,10 +24,14 @@
    
    rownames_of_freq_mat <- as.numeric(rownames(mat_freq_top300_btwn_dyadic_ind_mod_base_13)) 
    resp_rownames <- which(rownames_of_freq_mat <= 298)
-   
+   nonresp_rownames <- which(rownames_of_freq_mat > 298)
+
    summary(as.numeric(mat_freq_top300_btwn_dyadic_ind_mod_base_13[resp_rownames,]))
    sd(as.numeric(mat_freq_top300_btwn_dyadic_ind_mod_base_13[resp_rownames,]))
-   
+
+   summary(as.numeric(mat_freq_top300_btwn_dyadic_ind_mod_base_13[nonresp_rownames,]))
+   sd(as.numeric(mat_freq_top300_btwn_dyadic_ind_mod_base_13[nonresp_rownames,]))
+
    ## save
    saveRDS(names.in.num, file="btwn_top300_ids.RDS")
    save.image(file="btwn_results.RData")
