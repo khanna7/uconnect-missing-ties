@@ -87,12 +87,15 @@ deg_dist_data <- rbind(control_deg_dist, imp_deg_dist)
 #     ylim(0, 0.05)+
 #     xlab("degrees")+ylab("proportion of nodes")
 
+png(file="raw-and-imputed-deg-dists.Rmd")
 ggplot(deg_dist_data, aes(x=degrees, 
                           #frequency/network.size(r0_net), 
                           color=network))+
     geom_freqpoly(binwidth=25)+
     #ylim(0, 0.05)+
     xlab("Degrees")+ylab("Number of nodes")
+dev.off()
+
 ```
 
 ```{r, echo=FALSE, results='hide'}
@@ -133,3 +136,4 @@ imp_p <- ggnet2(imp_to_plot_no_isolates, color="respondent", size=1,
 pdf(file="nets_2row.pdf")
 grid.arrange(raw_p, imp_p, nrow=2)
 dev.off()
+
