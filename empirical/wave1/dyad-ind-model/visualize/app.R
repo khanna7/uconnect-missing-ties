@@ -7,6 +7,7 @@ library(sna)
 library(network)
 library(ergm)
 library(GGally)
+library(rsconnect)
 
 load("data_to_plot_nets.RData")
 
@@ -16,13 +17,14 @@ ui <- fluidPage(
     sidebarPanel( 
       selectInput("dataset", "Choose a dataset", 
                   choices = c("Raw", "Imputed"),
-                  selected="Raw")
+                  selected="Raw"),
+      selectInput("colors", "Color Respondents?", 
+                  choices = c("No", "Yes"),
+                  selected="No")
     ),
     mainPanel(
       plotOutput("net"),
       br(), br(), br(), br()
-      #plotOutput("imp_to_plot")
-     ## tableOutput("results")
     )
   )
 )
@@ -36,12 +38,17 @@ server <- function(input, output) {
            ) 
   })
   
-  output$net <- renderPlot({
-    #net_to_plot <- datasetInput()
-    ggnet2(datasetInput(), size=1, color="respondent", 
-          palette="Set2")
-  })
-
+  output$net <- renderPlot(
+    
+    {
+      if (input$colors == "No"){
+        ggnet2(datasetInput(), size=2)
+      } else
+        ggnet2(datasetInput(), size=2, color="respondent", palette="Set2")
+    }
+    
+    )
+  
 }
 
 shinyApp(ui = ui, server = server)
