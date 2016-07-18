@@ -51,23 +51,20 @@ server <- function(input, output) {
   output$net <- renderPlot(
     
     {
-      if (input$colors == "No" && 
-            (is.null(input$crit_nodes))){
-        ggnet2(datasetInput(), size=2)
-      } else {
+      if (input$colors == "Yes"){
         ggnet2(datasetInput(), size=2, color="respondent", palette="Set2")
+      } else if (input$colors == "No" && is.null(input$crit_nodes)){
+        ggnet2(datasetInput(), size=2)
     }
-    if (input$crit_nodes == "None" || is.null(input$crit_nodes)){
-      ggnet2(datasetInput(), size=2)
-    } else if (input$crit_nodes == "Betweenness"){
+      else if (input$colors == "No" && input$crit_nodes == "Betweenness"){
       ggnet2(datasetInput(), size=2, color="btwn", palette="Set1")
-    } else if (input$crit_nodes == "Eigenvector"){
+    } else if (input$colors == "No" && input$crit_nodes == "Eigenvector"){
       ggnet2(datasetInput(), size=2, color="evcent", palette="Set1")
     }
-      else if (input$crit_nodes == "Bridges"){
+      else if (input$colors == "No" && input$crit_nodes == "Bridges"){
       ggnet2(datasetInput(), size=2, color="bridge", palette="Set1")
     }
-     else if (input$crit_nodes == "Keyplayer"){
+     else if (input$colors == "No" && input$crit_nodes == "Keyplayer"){
       ggnet2(datasetInput(), size=2, color="kp", palette="Set1")
      }    
 }
