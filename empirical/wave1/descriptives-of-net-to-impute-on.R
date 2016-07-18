@@ -64,7 +64,7 @@
          table(imp_nodes_data$fb_sex, exclude=NULL)
          table(respondent_data$fb_sex, exclude=NULL)
          summary(alter_data$fb_sex, exclude=NULL)
-         ## city chicago
+         ## city chicaog
          table(imp_nodes_data$fb_city_chicago, exclude=NULL)
          table(respondent_data$fb_city_chicago, exclude=NULL)
          table(alter_data$fb_city_chicago, exclude=NULL)

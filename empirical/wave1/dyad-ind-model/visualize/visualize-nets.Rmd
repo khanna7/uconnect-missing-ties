@@ -192,3 +192,6 @@ grid.arrange(p_resp_deg_dist, p_nonresp_deg_dist, nrow=2)
 dev.off()
 
 ```
+```{r}
+save.image(file="data_to_plot_nets.RData")
+```
