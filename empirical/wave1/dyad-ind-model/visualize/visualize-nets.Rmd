@@ -159,7 +159,7 @@ resp_deg_dist_data_df[,2] <- c(rep("raw", 298), rep("imputed", 298))
 colnames(resp_deg_dist_data_df) <- c("frequency", "network")
 
 resp_deg_dist_data_df$network <- as.factor(resp_deg_dist_data_df$network)
-levels(resp_deg_dist_data_df$network) <- rev(levels(resp_deg_dist_data_df$network))
+#levels(resp_deg_dist_data_df$network) <- rev(levels(resp_deg_dist_data_df$network))
 
 ## nonrespondent data on raw and imputed networks
 nonresp_deg_dist_data <- as.data.frame(c(r0_net_degrees_nonrespondents, 
@@ -169,7 +169,7 @@ nonresp_deg_dist_data_df[,2] <- c(rep("raw", 587), rep("imputed", 587))
 colnames(nonresp_deg_dist_data_df) <- c("frequency", "network")
 
 nonresp_deg_dist_data_df$network <- as.factor(nonresp_deg_dist_data_df$network)
-levels(nonresp_deg_dist_data_df$network) <- rev(levels(nonresp_deg_dist_data_df$network))
+#levels(nonresp_deg_dist_data_df$network) <- rev(levels(nonresp_deg_dist_data_df$network))
 
 p_resp_deg_dist <- ggplot(resp_deg_dist_data_df, 
                        aes(x=frequency,  
