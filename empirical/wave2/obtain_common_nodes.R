@@ -18,6 +18,9 @@ w2.com.resp.net
 
 w2.full.net <- asNetwork(w2.ig)
 
+saveRDS(w1.com.resp.r0, "w1_com_resp_r0.RDS")
+saveRDS(w2.com.resp.ig, "w2_com_resp_r0.RDS")
+
 ## add nonrespondent set from wave 1 analysis
 w1_nr_idx <- which(w1_imputed_net %v% "respondent" == 0)
 w1_nr_names <- (w1_imputed_net %v% "vertex.names")[w1_nr_idx]
@@ -50,7 +53,7 @@ n <- length(vnames)
 
 w2_r_nr_adj_mat <- matrix(0, nrow=n, ncol=n)
 w2_r_nr_adj_mat[1:nresp, 1:nresp] <- w2_net_r_nr_obs
-w2_r_nr_adj_mat[266:279, 266:270] <- NA
+w2_r_nr_adj_mat[266:526, 266:526] <- NA
 
 w2_r_nr_miss_edg <- as.network.matrix(w2_r_nr_adj_mat, directed=FALSE)
 w2_r_nr_miss_edg 
@@ -85,4 +88,5 @@ miss_edg_stergm <- stergm(net_list,
                           estimate="CMLE"
                           )
 
-save.image(file="big_stergm.RData")
+#save.image(file="big_stergm.RData")
+save.image(file="big_stergm_260nodes.RData")
