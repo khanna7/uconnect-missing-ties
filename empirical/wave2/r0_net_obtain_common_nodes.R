@@ -49,10 +49,29 @@ w2_id_w_svy_data <- which(V(w2_com_resp_ig)$name %in% w2_ego$su_id)
 w2_com_resp_ig_wsvydata <- induced_subgraph(w2_com_resp_ig, vids=w2_id_w_svy_data)
 
 w1_id_w_w2_svy_data <- which(V(w1_com_resp_ig)$name %in% V(w2_com_resp_ig_wsvydata)$name)
-w1_com_resp_ig_wsvydata <- induced_subgraph(w1_com_resp_ig, vids=w1_id_w_w2_svy_data)
+w1_com_resp_ig_w_w2svydata <- induced_subgraph(w1_com_resp_ig, vids=w1_id_w_w2_svy_data)
+
+## Compare degree distributions
+deg_w1_com_resp_ig_w_w2svydata <- degree(w1_com_resp_ig_w_w2svydata)
+deg_w2_com_resp_ig_wsvydata <- degree(w2_com_resp_ig_wsvydata)
+
+par(mfrow=c(1,2))
+hist(deg_w1_com_resp_ig_w_w2svydata, main="Wave 1", xlab="Degree", breaks=seq(0, 120, 10))
+hist(deg_w2_com_resp_ig_wsvydata, main="Wave 2", xlab="Degree", breaks=seq(0, 120, 10))
+
+## Compare esp
+w1_com_resp_net_w_w2svydata <- asNetwork(w1_com_resp_ig_w_w2svydata)
+w2_com_resp_net_wsvydata <- asNetwork(w2_com_resp_ig_wsvydata)
+
+w1_com_resp_net_w_w2svydata_esp_sum <- summary(w1_com_resp_net_w_w2svydata ~ gwesp)
+w2_com_resp_net_wsvydata_esp_sum <- summary(w2_com_resp_net_wsvydata ~ gwesp)
+
+par(mfrow=c(2,1))
+barplot(w1_com_resp_net_w_w2svydata_esp_sum, ylim=c(0, 150))
+barplot(w2_com_resp_net_wsvydata_esp_sum, ylim=c(0, 150))
 
 ## save+
-save.image(file="r0_nets_comparison.RData")
+save.image(file="r0_nets_obtain_com_respondents_w_svy_data.RData")
 
 
   
