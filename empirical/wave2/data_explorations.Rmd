@@ -1,0 +1,41 @@
+Longitudinal missing tie prediction: Comparing Facebook Networks at the Two Waves
+========================================================
+
+
+Three questions that have been identified:     
+
+1.  How much turnover there is in the observed ties (no imputation is necessary)?
+This question can be answered for the respondent-only FB networks at the two time points, and
+the respondents + nonrespondents who are friends with 10% of the respondents.
+
+2.	How much turnover there is in the unobserved ties (with cross-sectional imputation at the two waves)?
+As stated, this question might not be answerable. 
+
+3.	Which PCAs are persistently selected?
+We can conduct an analysis identical to the first paper with the second wave of data, and compare which PCAs are selected both times.
+
+## Comparison of Respondent-Only Networks
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(igraph))
+load("r0_nets_comparison.RData")
+```
+
+In Wave 1, the respondent-only network consisted of `r vcount(w1.resp.ig)` nodes and `r ecount(w1.resp.ig)` edges, indicating a mean degree of 
+`r round(2*ecount(w1.resp.ig)/vcount(w1.resp.ig), 1)`. In Wave 2, the corresponding statistics are `r vcount(w2.resp.ig)` and `r ecount(w2.resp.ig)` respectively, with a mean degree of `r round(2*ecount(w2.resp.ig)/vcount(w2.resp.ig), 1)`.  
+
+There are `r nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])` ties from Wave 1 that also exist in Wave 2. This result implies that 
+`r ecount(w2.resp.ig) - nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])`
+ties were seen in Wave 2 but not in Wave 1.
+
+## Comparison of Respondent-Only Networks, restricted to common nodes
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(igraph))
+load("r0_nets_obtain_com_respondents_w_svy_data.RData")
+```
+
+There were `r vcount(w1_com_resp_ig_w_w2svydata)` nodes in waves 1 and 2, who also gave in-person survey data. In Wave 1, these individuals had `r ecount(w1_com_resp_ig_w_w2svydata)` edges, and in Wave 2, they shared `r ecount(w2_com_resp_ig_wsvydata)` edges.   
+
+
+
+
+
