@@ -1,6 +1,9 @@
 Longitudinal missing tie prediction: Comparing Facebook Networks at the Two Waves
 ========================================================
 
+```{r, echo=FALSE}
+options(scipen=999)
+```
 
 Three questions that have been identified:     
 
@@ -14,28 +17,152 @@ As stated, this question might not be answerable.
 3.	Which PCAs are persistently selected?
 We can conduct an analysis identical to the first paper with the second wave of data, and compare which PCAs are selected both times.
 
-## Comparison of Respondent-Only Networks
+## Comparison of respondent-only networks
 ```{r, echo=FALSE}
 suppressPackageStartupMessages(library(igraph))
 load("r0_nets_comparison.RData")
 ```
 
-In Wave 1, the respondent-only network consisted of `r vcount(w1.resp.ig)` nodes and `r ecount(w1.resp.ig)` edges, indicating a mean degree of 
-`r round(2*ecount(w1.resp.ig)/vcount(w1.resp.ig), 1)`. In Wave 2, the corresponding statistics are `r vcount(w2.resp.ig)` and `r ecount(w2.resp.ig)` respectively, with a mean degree of `r round(2*ecount(w2.resp.ig)/vcount(w2.resp.ig), 1)`.  
+In Wave 1, the respondent-only network consisted of 
+`r vcount(w1.resp.ig)` 
+nodes and 
+`r ecount(w1.resp.ig)` 
+edges, indicating a mean degree of 
+`r round(2*ecount(w1.resp.ig)/vcount(w1.resp.ig), 1)`. 
+In Wave 2, the corresponding statistics are `r vcount(w2.resp.ig)` 
+and 
+`r ecount(w2.resp.ig)` 
+respectively, with a mean degree of 
+`r round(2*ecount(w2.resp.ig)/vcount(w2.resp.ig), 1)`.  
 
-There are `r nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])` ties from Wave 1 that also exist in Wave 2. This result implies that 
+There are 
+`r nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])` 
+ties from Wave 1 that also exist in Wave 2. This result implies that 
 `r ecount(w2.resp.ig) - nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])`
 ties were seen in Wave 2 but not in Wave 1.
 
-## Comparison of Respondent-Only Networks, restricted to common nodes
+A comparison of the degree distributions of the networks at the two waves is below.
+
+```{r}
+par(mfrow=c(1,2))
+hist(deg_w1.resp, xlab="Degree", breaks=seq(0, 180, 20), main="Wave 1")
+hist(deg_w2.resp, xlab="Degree", breaks=seq(0, 180, 20),  main="Wave 2")
+```
+
+The edge-wise shared partner statistics are below.
+
+```{r}
+par(mfrow=c(2,1))
+barplot(w1_resp_gwesp_sum, ylim=c(0, 150))
+barplot(w2_resp_gwesp_sum, ylim=c(0, 150))
+```
+
+## Comparison of respondent-only networks, restricted to common nodes
 ```{r, echo=FALSE}
 suppressPackageStartupMessages(library(igraph))
 load("r0_nets_obtain_com_respondents_w_svy_data.RData")
 ```
 
-There were `r vcount(w1_com_resp_ig_w_w2svydata)` nodes in waves 1 and 2, who also gave in-person survey data. In Wave 1, these individuals had `r ecount(w1_com_resp_ig_w_w2svydata)` edges, and in Wave 2, they shared `r ecount(w2_com_resp_ig_wsvydata)` edges.   
+There were 
+`r vcount(w1_com_resp_ig_w_w2svydata)` 
+nodes in waves 1 and 2, who also gave in-person survey data. In Wave 1, these individuals had 
+`r ecount(w1_com_resp_ig_w_w2svydata)` edges, and in Wave 2, they shared 
+`r ecount(w2_com_resp_ig_wsvydata)` 
+edges.   There were `r length(seed_idx)` seeds among these `r n` common respondents.
 
+There were `r nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])` ties that persisted through waves 1 and 2. We found that `r ecount(w1_com_resp_ig_w_w2svydata) - nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])` ties existed in wave 1 but did not in wave 2, and that  `r ecount(w2_com_resp_ig_wsvydata) - nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])` new ties had formed between the two waves.
 
+A heatmap of the edges at the two time points follows.
 
+```{r, echo=FALSE}
+image(freq, col=gray(32:0/32), xaxt="n", yaxt="n")
+ 
+   ## label
+   seed_idx <- which(substr(w1_vnames_ord, 1, 4) == "1111")
+   seed_idx_prop <- length(seed_idx)/n
 
+   axis(1, at=seed_idx_prop/2, labels="seeds")
+   axis(1, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(1, at=seed_idx_prop, labels="")
 
+   axis(2, at=seed_idx_prop/2, labels="seeds")
+   axis(2, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(2, at=seed_idx_prop, labels="")
+
+```
+
+Below, we see all seeds and ane equal number of recruits (i.e. the first 80 nodes in the networks when the names are ordered) in the heatmap.
+
+```{r, echo=FALSE}
+seed_idx_prop <- 1/2
+   image(freq[1:80, 21:60], col=gray(32:0/32), xaxt="n", yaxt="n")
+   axis(1, at=seed_idx_prop/2, labels="seeds")
+   axis(1, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(1, at=seed_idx_prop, labels="")
+
+   axis(2, at=seed_idx_prop/2, labels="seeds")
+   axis(2, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(2, at=seed_idx_prop, labels="")
+```
+  
+The mean degrees at the two waves were 
+  `r round(2*ecount(w1_com_resp_ig_w_w2svydata)/vcount(w1_com_resp_ig_w_w2svydata), 1)`
+and 
+  `r round(2*ecount(w2_com_resp_ig_wsvydata)/vcount(w2_com_resp_ig_wsvydata), 1)`
+respectively.
+
+The degree distributions of the networks at the waves are compared below.
+
+```{r}
+par(mfrow=c(1,2))
+hist(deg_w1_com_resp_ig_w_w2svydata, main="Wave 1", xlab="Degree", breaks=seq(0, 120, 10), 
+     ylim=c(0, 120))
+hist(deg_w2_com_resp_ig_wsvydata, main="Wave 2", xlab="Degree", breaks=seq(0, 120, 10),
+     ylim=c(0, 120))
+```
+
+The edgewise shared partner statistics are compared below.
+
+```{r}
+par(mfrow=c(2,1))
+barplot(w1_com_resp_net_w_w2svydata_esp_sum, ylim=c(0, 150), main="Wave 1")
+barplot(w2_com_resp_net_wsvydata_esp_sum, ylim=c(0, 150), main="Wave 2")
+```
+
+## Comparison of networks with respondents and nonrespondents 
+
+We restrict our analysis to nonrespondents who are friends with at 
+least 10% of the respondents.
+
+Networks at the two waves consisted of 
+  
+```{r, echo=FALSE}
+load("fb_net_comparison.RData")
+```
+  
+`r vcount(w1.fb.ig.10pc)` and
+`r vcount(w2.fb.ig.10pc)`
+ nodes, and 
+ `r ecount(w1.fb.ig.10pc)` and
+  `r ecount(w2.fb.ig.10pc)`
+edges,
+respectively. (These network sizes correspond to observed mean degrees of 
+`r round((ecount(w1.fb.ig.10pc)*2)/vcount(w1.fb.ig.10pc), 1)` and 
+`r round(ecount(w2.fb.ig.10pc)*2/vcount(w2.fb.ig.10pc), 1)`
+respectively.)
+
+A comparison of the degree distributions of the networks at the two waves is below.
+
+```{r}
+   par(mfrow=c(1,2))
+   hist(deg_w1.fb.ig.10pc, breaks=seq(0, 800, 50), xlab="Degree", main="Wave 1")
+   hist(deg_w2.fb.ig.10pc, breaks=seq(0, 800, 50), xlab="Degree", main="Wave 2")
+```
+
+A comparison of the edgewise shared partner statistics follows.
+
+```{r}
+       par(mfrow=c(2,1))
+       barplot(w1_gwesp_sum, ylim=c(0, 1200), main="Wave 1")
+       barplot(w2_gwesp_sum, ylim=c(0, 1200), main="Wave 2")
+```
