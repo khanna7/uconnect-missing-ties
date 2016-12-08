@@ -1,6 +1,7 @@
 ## compute EDA characteristics between Waves 1 and 2.
 
 rm(list=ls())
+library(intergraph)
 library(igraph)
 library(foreign)
 
@@ -60,6 +61,7 @@ hist(deg_w1_com_resp_ig_w_w2svydata, main="Wave 1", xlab="Degree", breaks=seq(0,
 hist(deg_w2_com_resp_ig_wsvydata, main="Wave 2", xlab="Degree", breaks=seq(0, 120, 10))
 
 ## Compare esp
+library(ergm)
 w1_com_resp_net_w_w2svydata <- asNetwork(w1_com_resp_ig_w_w2svydata)
 w2_com_resp_net_wsvydata <- asNetwork(w2_com_resp_ig_wsvydata)
 
@@ -67,10 +69,84 @@ w1_com_resp_net_w_w2svydata_esp_sum <- summary(w1_com_resp_net_w_w2svydata ~ gwe
 w2_com_resp_net_wsvydata_esp_sum <- summary(w2_com_resp_net_wsvydata ~ gwesp)
 
 par(mfrow=c(2,1))
-barplot(w1_com_resp_net_w_w2svydata_esp_sum, ylim=c(0, 150))
-barplot(w2_com_resp_net_wsvydata_esp_sum, ylim=c(0, 150))
+barplot(w1_com_resp_net_w_w2svydata_esp_sum)
+barplot(w2_com_resp_net_wsvydata_esp_sum)
 
-## save+
+## calculate numbers of dissolved and new ties 
+el_w1 <- as_edgelist(w1_com_resp_ig_w_w2svydata) 
+el_w2 <- as_edgelist(w2_com_resp_ig_wsvydata)
+
+el_rbind <- rbind(el_w1, el_w2)
+nrow(el_rbind[duplicated(el_rbind), 
+              ,drop = FALSE]) #number of common ties
+
+ecount(w2_com_resp_ig_wsvydata) - 
+  nrow(el_rbind[duplicated(el_rbind), ,drop = FALSE])
+  # number of newly formed ties
+
+ecount(w1_com_resp_ig_w_w2svydata) -
+  nrow(el_rbind[duplicated(el_rbind), 
+                ,drop = FALSE]) #num. of ties at w1 that had dissolved in w2 
+
+## produce heatmap of edges between the two waves
+   w1_vnames <- V(w1_com_resp_ig_w_w2svydata)$name
+   w2_vnames <- V(w2_com_resp_ig_wsvydata)$name
+
+   ## permute nodes so that RDS seeds are first
+   w1_vnames_ord <- sort(as.numeric(w1_vnames))
+   w2_vnames_ord <- sort(as.numeric(w2_vnames))
+   identical(w1_vnames_ord, w2_vnames_ord)
+
+   w1_com_resp_ig_w_w2svydata_ord <- permute.vertices(w1_com_resp_ig_w_w2svydata, 
+                                                      match(w1_vnames, w1_vnames_ord)
+                                                      )
+   w2_com_resp_ig_wsvydata_ord <- permute.vertices(w2_com_resp_ig_wsvydata,
+                                                   match(w2_vnames, w2_vnames_ord))
+
+   ## prepare adjacency matrices
+   adj_w1 <- get.adjacency(w1_com_resp_ig_w_w2svydata_ord)
+   adj_w2 <- get.adjacency(w2_com_resp_ig_wsvydata_ord)
+   n <- nrow(adj_w1)
+
+   adj_list <- array(NA, dim=c(n, n, 2))
+   adj_list[, , 1] <- as.matrix(adj_w1)
+   adj_list[, , 2] <- as.matrix(adj_w2)
+
+   ## compute frequencies
+   freq <- apply(adj_list, c(1,2), sum)
+   colnames(freq) <- w1_vnames
+   rownames(freq) <- w2_vnames
+
+   ## visualize
+   par(mfrow=c(1,1))
+   image(freq, col=gray(32:0/32), xaxt="n", yaxt="n")
+ 
+   ## label
+   seed_idx <- which(substr(w1_vnames_ord, 1, 4) == "1111")
+   seed_idx_prop <- length(seed_idx)/n
+
+   axis(1, at=seed_idx_prop/2, labels="seeds")
+   axis(1, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(1, at=seed_idx_prop, labels="")
+
+   axis(2, at=seed_idx_prop/2, labels="seeds")
+   axis(2, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(2, at=seed_idx_prop, labels="")
+
+   
+   seed_idx_prop <- 1/2
+   image(freq[1:80, 1:80], col=gray(32:0/32), xaxt="n", yaxt="n")
+   axis(1, at=seed_idx_prop/2, labels="seeds")
+   axis(1, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(1, at=seed_idx_prop, labels="")
+
+   axis(2, at=seed_idx_prop/2, labels="seeds")
+   axis(2, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(2, at=seed_idx_prop, labels="")
+
+
+## save image
+
 save.image(file="r0_nets_obtain_com_respondents_w_svy_data.RData")
 
 
