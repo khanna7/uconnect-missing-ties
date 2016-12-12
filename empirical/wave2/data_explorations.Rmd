@@ -104,7 +104,38 @@ seed_idx_prop <- 1/2
    axis(2, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
    axis(2, at=seed_idx_prop, labels="")
 ```
-  
+
+In the figures above, ties that are formed and dissolved are colored the same. Below, we differentiate these: the formed ties are a darker grey then the dissolved. 
+
+
+```{r, echo=FALSE}
+
+   ## label
+   seed_idx <- which(substr(w1_vnames_ord, 1, 4) == "1111")
+   seed_idx_prop <- length(seed_idx)/n
+
+   image(new_mat, col=gray(32:0/32), xaxt="n", yaxt="n")
+
+   axis(1, at=seed_idx_prop/2, labels="seeds")
+   axis(1, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(1, at=seed_idx_prop, labels="")
+
+   axis(2, at=seed_idx_prop/2, labels="seeds")
+   axis(2, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(2, at=seed_idx_prop, labels="")
+
+   seed_idx_prop <- 1/2
+   image(new_mat[1:80, 1:80], col=gray(32:0/32), xaxt="n", yaxt="n")
+
+   axis(1, at=seed_idx_prop/2, labels="seeds")
+   axis(1, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(1, at=seed_idx_prop, labels="")
+
+   axis(2, at=seed_idx_prop/2, labels="seeds")
+   axis(2, at=(seed_idx_prop+(1-seed_idx_prop)/2), labels="recruits")
+   axis(2, at=seed_idx_prop, labels="")
+```
+
 The mean degrees at the two waves were 
   `r round(2*ecount(w1_com_resp_ig_w_w2svydata)/vcount(w1_com_resp_ig_w_w2svydata), 1)`
 and 
