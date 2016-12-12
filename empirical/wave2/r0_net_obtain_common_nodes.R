@@ -164,6 +164,15 @@ ecount(w1_com_resp_ig_w_w2svydata) -
    length(persisted)/2
    length(never_existed)/2      
 
+   ## create colored heatmap
+   new_mat <- matrix(-1, nrow=n, ncol=n)
+   new_mat[persisted] <- 1
+   new_mat[formed] <- 0.5
+   new_mat[dissolved] <- -0.5
+
+   image(new_mat, col=gray(32:0/32), xaxt="n", yaxt="n")
+   image(new_mat[1:80, 1:80], col=gray(32:0/32), xaxt="n", yaxt="n")
+
 ## save image
 save.image(file="r0_nets_obtain_com_respondents_w_svy_data.RData")
 
