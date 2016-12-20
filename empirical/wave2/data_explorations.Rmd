@@ -165,7 +165,7 @@ par(mfrow=c(2,1))
 barplot(w1_com_resp_net_w_w2svydata_esp_sum/sum(w1_com_resp_net_w_w2svydata_esp_sum), 
         ylim=c(0, 0.1), main="Wave 1")
 barplot(w2_com_resp_net_wsvydata_esp_sum/sum(w2_com_resp_net_wsvydata_esp_sum), 
-        ylim=c(0, 150), main="Wave 2")
+        ylim=c(0, 0.1), main="Wave 2")
 ```
 
 ## Comparison of networks with respondents and nonrespondents 
@@ -196,9 +196,11 @@ A comparison of the degree distributions of the networks at the two waves is bel
    par(mfrow=c(1,2))
    hist(deg_w1.fb.ig.10pc,freq=FALSE,
         breaks=seq(0, 800, 50), xlab="Degree", 
-        main="Wave 1")
+        main="Wave 1", ylim=c(0,0.1))
    hist(deg_w2.fb.ig.10pc, freq=FALSE,
-        breaks=seq(0, 800, 50), xlab="Degree", main="Wave 2")
+        breaks=seq(0, 800, 50), xlab="Degree", main="Wave 2",
+        ylim=c(0,0.04)
+        )
 ```
 
 A comparison of the edgewise shared partner statistics follows.
@@ -206,7 +208,7 @@ A comparison of the edgewise shared partner statistics follows.
 ```{r}
        par(mfrow=c(2,1))
        barplot(w1_gwesp_sum/sum(w1_gwesp_sum), 
-               ylim=c(0, 1200), main="Wave 1")
+               ylim=c(0, 0.1), main="Wave 1")
        barplot(w2_gwesp_sum/sum(w2_gwesp_sum), 
-               ylim=c(0, 1200), main="Wave 2")
+               ylim=c(0, 0.1), main="Wave 2")
 ```
