@@ -10,7 +10,7 @@
    load(file="imputed_network.RData")
 
    ## Add 'respdeg' attribute
-   deg.imputed_network <- degree(imputed_network)
+   #deg.imputed_network <- degree(imputed_network) #should clearly specify gmode="graph", but this statement was not used below anywhere
    #imputed_network%v%"respdeg" <- deg.imputed_network (was incorrect)
    n <- network.size(imputed_network)
    resp <- union(
