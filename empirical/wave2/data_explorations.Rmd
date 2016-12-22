@@ -170,25 +170,34 @@ barplot(w2_com_resp_net_wsvydata_esp_sum/sum(w2_com_resp_net_wsvydata_esp_sum),
 
 ## Comparison of networks with respondents and nonrespondents 
 
-We restrict our analysis to nonrespondents who are friends with at 
-least 10% of the respondents.
-
-Networks at the two waves consisted of 
-  
 ```{r, echo=FALSE}
 load("fb_net_comparison.RData")
 ```
-  
+
+In Waves 1 and 2, 
+there are `r length(w1_resp)` respondents and 
+`r length(w2_resp)` respectively.
+
+
+We restrict our analysis to nodes who are friends with at 
+least 10% of the respondents. This criteria leaves us with
 `r vcount(w1.fb.ig.10pc)` and
 `r vcount(w2.fb.ig.10pc)`
  nodes, and 
  `r ecount(w1.fb.ig.10pc)` and
   `r ecount(w2.fb.ig.10pc)`
 edges,
-respectively. (These network sizes correspond to observed mean degrees of 
+respectively. After the selection criteria for nodes was applied, we were left with `r length(w1_resp_10pc)` and 
+`r length(w2_resp_10pc)` 
+respondents at each wave.
+
+These network sizes correspond to observed mean degrees of 
 `r round((ecount(w1.fb.ig.10pc)*2)/vcount(w1.fb.ig.10pc), 1)` and 
 `r round(ecount(w2.fb.ig.10pc)*2/vcount(w2.fb.ig.10pc), 1)`
-respectively.)
+respectively. There were `r nrow(w1_resp_resp_el)` and `r nrow(w2_resp_resp_el)` edges limited only to respondents at each wave. Thus, the number of respondent-nonrespondent edges were `r nrow(w1_10pc_el) - nrow(w1_resp_resp_el)`
+and `r nrow(w2_10pc_el) - nrow(w2_resp_resp_el)`.
+
+In each of these networks, there were 
 
 A comparison of the degree distributions of the networks at the two waves is below.
 
