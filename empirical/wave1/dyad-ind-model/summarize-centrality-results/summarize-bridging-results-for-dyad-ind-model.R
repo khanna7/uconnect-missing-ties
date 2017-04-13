@@ -6,7 +6,7 @@
    library(igraph)
 
    ## data and lists
-      load("../compute-influence-metrics/sort_top300_bridge_dyadic_ind_mod_base_13.RData")
+      load("../compute-influence-metrics/sort_top300_bridge_dyadic_ind_mod_base_13_100graphs.RData")
 
    ## frequency
       freq_top300_bridge_dyadic_ind_mod_base_13

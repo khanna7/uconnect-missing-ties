@@ -3,7 +3,7 @@
    rm(list=ls())
    
    ##  betweenness
-   load("../compute-influence-metrics/sort_top300_evcent_dyadic_ind_mod_base_13.RData")
+   load("../compute-influence-metrics/sort_top300_evcent_dyadic_ind_mod_base_13_100.RData")
 
    ## frequency
    freq_top300_evcent_dyadic_ind_mod_base_13

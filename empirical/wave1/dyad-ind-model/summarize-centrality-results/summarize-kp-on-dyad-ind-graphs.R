@@ -3,7 +3,7 @@
    rm(list=ls())
 
    ## libraries and data
-   load("../compute-influence-metrics/sort_top300_kp_dyadic_ind_mod_base_13.RData")
+   load("../compute-influence-metrics/sort_top300_kp_dyadic_ind_mod_base_13_100.RData")
 
    ## summarize results
    vec_kp_dyadic_ind_mod_base_13 <- unlist(kp_dyadic_ind_mod_base_13)
