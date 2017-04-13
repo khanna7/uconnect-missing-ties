@@ -10,7 +10,7 @@ load("bridging_results.RData")
 load("sort_top300_kp_dyadic_ind_mod_base_13_try1.RData")
 
 ## number of imputations
-   nsim <- 10
+   nsim <- 100
 
 ## cutoffs for each metric (as proportion for number of imputations)
    btwn_cutoff <- 1*nsim
