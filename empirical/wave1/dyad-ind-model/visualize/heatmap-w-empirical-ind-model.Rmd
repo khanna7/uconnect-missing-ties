@@ -17,7 +17,7 @@ rm(list=ls())
 and reading in the data.
 ```{r}
 ## data
-net_list <- readRDS("../sim-from-ergm/imputed_10_nets_w_nodemix.RDS")
+net_list <- readRDS("../sim-from-ergm/imputed_100_nets_w_nodemix.RDS")
 ```
 
 ## Processsing the Data
