@@ -33,7 +33,7 @@ Networks without (i.e "control", left) and with tie imputation are shown below.
          palette = "Set2")+ggtitle("Raw Data") 
   
   ## PLOT IMPUTED NETWORK
-imp_networks <- readRDS("../sim-from-ergm/imputed_10_nets_w_nodemix.RDS")
+  imp_networks <- readRDS("../sim-from-ergm/imputed_100_nets_w_nodemix.RDS")
 
   n_to_plot <- sample(1:length(imp_networks), 1)
   imp_to_plot <- sample(imp_networks, 1)
