@@ -16,7 +16,7 @@ load("sort_top300_kp_dyadic_ind_mod_base_13_try1.RData")
    btwn_cutoff <- 1*nsim
    evcent_cutoff <- 1*nsim
    bridging_cutoff <- 1*nsim
-   kp_cutoff <- 0.4*nsim
+   kp_cutoff <- 0.37*nsim
 
 ## PCA frequency data
    btwn_results <- freq_top300_btwn_dyadic_ind_mod_base_13
