@@ -45,11 +45,17 @@ norm_kp_bridging <- bridging_kp_cutoff/length(kp_after_cutoff)
 ### Plot
 ```{r, echo=FALSE}
 positions <- c(0, 0.33, 0.66, 1)
-labels <- c("btwn", "evcent", "bridging", "keyplayer")
+labels <- c("BT", "EV", "BR", "KP")
 image(as.matrix(cutoffs_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n")
 axis(1, at=positions, labels=labels)
 axis(2, at=positions, labels=labels)
 #image(as.matrix(cutoffs_overlap_matrix[1:3,1:3]), col=gray(32:0/32), xaxt="n", yaxt="n")
+
+png(file="imputed_networks_overlaps_all_sPCAs.png")
+image(as.matrix(cutoffs_overlap_matrix), col=gray(32:0/32), xaxt="n", yaxt="n")
+axis(1, at=positions, labels=labels)
+axis(2, at=positions, labels=labels)
+dev.off()
 ```
 
 ```{r, echo=FALSE}
