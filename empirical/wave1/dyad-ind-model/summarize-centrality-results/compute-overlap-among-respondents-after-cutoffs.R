@@ -16,6 +16,16 @@ nresp <- 298
    length(resp_bridging_after_cutoff)
    length(resp_kp_after_cutoff)
 
+   length(resp_btwn_after_cutoff)/length(btwn_after_cutoff) ## % of respondents in sPCAs
+   length(resp_evcent_after_cutoff)/length(evcent_after_cutoff)
+   length(resp_bridging_after_cutoff)/length(bridging_after_cutoff)
+   length(resp_kp_after_cutoff)/length(kp_after_cutoff)
+
+   1 - length(resp_btwn_after_cutoff)/length(btwn_after_cutoff) ## % of nonrespondents in sPCAs
+   1 - length(resp_evcent_after_cutoff)/length(evcent_after_cutoff)
+   1 - length(resp_bridging_after_cutoff)/length(bridging_after_cutoff)
+   1 - length(resp_kp_after_cutoff)/length(kp_after_cutoff)
+
 ## overlap between these nodes
    resp_btwn_evcent_cutoff <- length(intersect(resp_btwn_after_cutoff, resp_evcent_after_cutoff))
    resp_btwn_bridging_cutoff <- length(intersect(resp_btwn_after_cutoff, resp_bridging_after_cutoff))
