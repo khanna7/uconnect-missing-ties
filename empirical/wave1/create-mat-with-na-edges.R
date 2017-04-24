@@ -1,4 +1,6 @@
 ## create network with unobserved edges from wave 1
+## Code for creating igraph with nonrespondents of degree >= 30 is in: `/project/khanna7/Projects/UConnect/UConnect_FB/FB_W1_Identified_4.15.2015/descriptives/ergm-imputation-ronet-w1.R`
+## Code gor creating igraph with degree cutoffs 1, 2, 3, and 4 is in `csv_to_igraph_degree_subsets.R`
 
    rm(list=ls())
 
