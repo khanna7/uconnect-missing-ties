@@ -28,6 +28,8 @@ norm_kp_btwn <- btwn_kp_cutoff/length(kp_after_cutoff)
 norm_kp_evcent <- evcent_kp_cutoff/length(kp_after_cutoff)
 norm_kp_bridging <- bridging_kp_cutoff/length(kp_after_cutoff)
 
+length(union(evcent_after_cutoff, kp_after_cutoff)) #union evcent, kp, after cutoff
+
 ## form matrix
    cutoffs_overlap_matrix <- as.data.frame(matrix(1, nrow=4, ncol=4))
    cutoffs_overlap_matrix[1, 2:4] <- c(norm_btwn_evcent, norm_btwn_bridging, norm_btwn_kp)
