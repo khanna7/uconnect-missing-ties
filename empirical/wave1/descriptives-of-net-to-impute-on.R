@@ -72,8 +72,9 @@
          table(imp_nodes_data$fb_city, exclude=NULL)
          table(respondent_data$fb_city, exclude=NULL)
          respondent_data$fb_city[which(respondent_data$fb_city != "chicago")]         
-         table(alter_data$fb_city_chicago, exclude=NULL) 
-         
+         table(alter_data$fb_city_chicago, exclude=NULL)/sum(table(alter_data$fb_city_chicago, exclude=NULL)) 
+         table(alter_data$fb_city, exclude=NULL)      
+   
          xtabs(~ factor(respondent_data$fb_city_chicago, exclude=NULL)+
                  factor(respondent_data$fb_state_illinois, exclude=NULL))
          
@@ -86,4 +87,5 @@
          table(alter_data$prepknow2, exclude=NULL)    
    ## save
 
- 
+   ## COMPARE respondent attributes between Facebook and survey
+   w1_svy_data <- read.csv("/project/khanna7/Projects/UConnect/UConnect_PrEP/Regressions/ego.data.w.couponinfo_n623.csv")
