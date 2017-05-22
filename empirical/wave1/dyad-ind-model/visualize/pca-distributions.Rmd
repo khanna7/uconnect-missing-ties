@@ -6,6 +6,7 @@ rm(list=ls())
 
 library(ggplot2)
 library(gridExtra)
+library(ggthemes)
 
 load("../summarize-centrality-results/btwn_results.RData")
 load("../summarize-centrality-results/evcent_results.RData")
@@ -37,9 +38,9 @@ table(freq_results$algorithm)
 
 ## Finding the cutoff for keyplayer
 keyplayer_results <- freq_results[freq_results$algorithm == "keyplayer",]
-which(keyplayer_results$freq >= 35)
-which(keyplayer_results$freq >= 36)
-which(keyplayer_results$freq >= 37) #frequency of 36 gives the number closest to 300 nodes selected
+length(which(keyplayer_results$freq >= 35))
+length(which(keyplayer_results$freq >= 36))
+length(which(keyplayer_results$freq >= 37)) #frequency of 36 gives the number closest to 300 nodes selected
 length(which(keyplayer_results$freq >= 33))
 mean(table(keyplayer_results$freq, useNA="always"))
 median(table(keyplayer_results$freq, useNA="always"))
@@ -48,8 +49,12 @@ median(table(keyplayer_results$freq, useNA="always"))
 btwn_results <- freq_results[freq_results$algorithm == "betweenness",]
 length(which(btwn_results$freq >= 100))
 length(which(btwn_results$freq >= 99))
+length(which(btwn_results$freq >= 98))
+length(which(btwn_results$freq >= 90))
 length(which(btwn_results$freq >= 80))
 length(which(btwn_results$freq >= 50))
+length(which(btwn_results$freq >= 36))
+length(which(btwn_results$freq >= 0))
 mean((table(btwn_results$freq, useNA="always")))
 median(table(btwn_results$freq, useNA="always"))
 
@@ -200,3 +205,38 @@ png(file="cutoffs_all_w_annot.png")
 p1_annot3
 dev.off()
 ```
+
+## Get plot for EV cent and keyplayer only
+
+```{r, echo=FALSE}
+freq_results_ev_kp <- freq_results[freq_results$algorithm == "eigenvector" | 
+                                     freq_results$algorithm == "keyplayer",]
+dim(freq_results_ev_kp)
+
+p1 <- ggplot(freq_results_ev_kp, aes(x=freq, color=algorithm))+geom_freqpoly(binwidth=1)+
+  #ggtitle("Distribution of peer change agent selection across the ten imputations")+
+  scale_x_continuous(breaks=seq(0, 100, 10))+
+  xlab("number of imputed networks")+
+  ylab("number of nodes")+
+  theme_minimal()
+
+
+p1_annot <- p1 + annotate("text", x=36, y=50, label="KP Cutoff")
+p1_annot_seg <- p1_annot+annotate("segment", y=32, yend=42,
+                                  x=36, xend=36)
+
+p1_annot2 <- p1_annot_seg + annotate("segment", x=50, xend=50,
+                                     y=-3, yend=10 
+                                     )
+p1_annot3 <- p1_annot2+annotate("text", x=50, y=12, 
+                                label="EV Cutoff")
+
+png(file="cutoffs_all_w_annot_ev_kp.png")
+p1_annot3
+dev.off()
+
+```
+
+
+
+save.image("pca_dists_and_figs.RData")
