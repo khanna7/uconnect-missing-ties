@@ -2,6 +2,7 @@
 rm(list=ls())
 
 library(ggplot2)
+library(ggthemes)
 load("../summarize-centrality-results/node-stability-witin-measure-btwn-control-and-imputations.RData")
 
 ## order is btwn, EV, bridging, KP
@@ -30,5 +31,15 @@ robustness_data$algorithm <- factor(robustness_data$algorithm, levels=c("Between
 png(file="robustness.png")
 ggplot(robustness_data, aes(x=algorithm, y=prop, fill=node))+
   geom_bar(position="dodge", stat="identity")+
-  ylab("Proportion of Agents")+ylab("proportion")
+  ylab("Proportion of Agents")+ylab("proportion")+theme_minimal()
+dev.off()
+
+##for evcent and keyplayer
+robustness_data_ev_kp <- robustness_data[robustness_data$algorithm == "Eigenvector" |
+                                           robustness_data$algorithm == "Keyplayer",]
+png(file="robustness_ev_kp.png")
+ggplot(robustness_data_ev_kp, aes(x=algorithm, y=prop, fill=node))+
+  geom_bar(position="dodge", stat="identity")+
+  ylab("Proportion of Agents")+ylab("proportion")+theme_minimal()+
+  coord_equal(1/0.4)
 dev.off()
