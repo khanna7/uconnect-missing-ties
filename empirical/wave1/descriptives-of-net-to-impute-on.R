@@ -89,3 +89,24 @@
 
    ## COMPARE respondent attributes between Facebook and survey
    w1_svy_data <- read.csv("/project/khanna7/Projects/UConnect/UConnect_PrEP/Regressions/ego.data.w.couponinfo_n623.csv")
+   fb_not_chicago <- which(respondent_data$fb_city_chicago != 1)
+   fb_not_chicago_suid <- respondent_data$suid[fb_not_chicago]
+   fb_not_chicago_suid_in_svy <- which(w1_svy_data$su_id %in% fb_not_chicago_suid)
+   
+  
+   ## 3.  Where do you live?  The closest intersection or cross-streets is OK. 
+   ## (WHERELIVE) (RECORD CROSS ?STREETS (CROSS), IF NOT POSSIBLE, 
+   ## PROBE FOR A 100 BLOCK OR GENERALIZED ADDRESS) (GENADDRESS)
+   w1_svy_data$wherelive[fb_not_chicago_suid_in_svy]
+   w1_svy_data$geoctype[fb_not_chicago_suid_in_svy]
+   ## no 'genaddress' variable
+   
+   ##Is that the South Side, North Side, West Side, East Side, 
+   ##South Suburbs or something else? [CITYAREA]
+   w1_svy_data$cityarea[fb_not_chicago_suid_in_svy]
+   table(w1_svy_data$cityarea[fb_not_chicago_suid_in_svy])
+   
+   ## In the last 7 days, that is since [DAY] of last week, how many nights 
+   ## did you sleep somewhere other than [CITY AREA]? (SLEEP7DYS)
+   w1_svy_data$sleep7dys[fb_not_chicago_suid_in_svy]
+   
