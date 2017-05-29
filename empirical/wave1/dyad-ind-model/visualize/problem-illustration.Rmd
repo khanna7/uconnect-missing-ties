@@ -8,14 +8,20 @@ rm(list=ls())
   dim(prob_mat)
 
   pdf(file="problem-illustration.pdf")
+
   image(prob_mat, col=gray(1), xaxt="n", yaxt="n")
-  axis(1, at=c(0, 0.5, 1.0), labels=c("respondents", "", "nonrespondents"))
+  axis(1, at=c(0, 0.5, 1.0), labels=c("respondents (n=298)", "", "nonrespondents (n=182,998)"))
   axis(2, at=c(0, 0.5, 1.0), labels=c("respondents", "", "nonrespondents"))
   abline(h=0.5, v=0.5)
   abline(v=c(-0.5, 1.5), h=c(-0.5, 1.5))
   text(0, 0, "observed")
+  text(0, -0.15, expression("(n" %~~% "44K)"))
   text(1, 0, "observed")
+  text(1, -0.15, expression("(n" %~~% "54M)"))
   text(0, 1, "observed")
+  text(0, 0.85, expression("(n" %~~% "54M)"))
   text(1,1, "unobserved")
+  text(1, 0.85, expression("(n" %~~% "17B)"))
+
   dev.off()
 ```
