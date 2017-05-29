@@ -80,16 +80,17 @@ p1 <- ggplot(freq_results, aes(x=freq, color=algorithm))+geom_freqpoly(binwidth=
         ggtitle("Distribution of peer change agent selection across the ten imputations")+
           scale_x_continuous(breaks=seq(0, 100, 10))+
            xlab("number of imputed networks")+
-            ylab("number of nodes")
+            ylab("number of nodes")+
+  theme_minimal()
 
 p1_annot <- p1 + annotate("text", x=36, y=50, label="KP Cutoff")
 p1_annot_seg <- p1_annot+annotate("segment", y=32, yend=42,
                                   x=36, xend=36)
 
-p1_annot2 <- p1_annot_seg + annotate("segment", x=100, xend=100,
-                                     y=210, yend=275 
+p1_annot2 <- p1_annot_seg + annotate("segment", x=50, xend=50,
+                                     y=-3, yend=10 
                                      )
-p1_annot3 <- p1_annot2+annotate("text", x=100, y=210, 
+p1_annot3 <- p1_annot2+annotate("text", x=50, y=12, 
                                 label="Other Cutoffs")
 
 ```
@@ -186,7 +187,8 @@ p5 <- ggplot(results, aes(x=freq, fill=PCA_set))+geom_histogram(binwidth=1)+
         scale_x_continuous(breaks=seq(0, 100, 10))+
           ggtitle("Keyplayer")+
             xlab("numberof imputed networks")+
-              ylab("number of nodes")
+              ylab("number of nodes")+
+  theme_minimal()
 
 p5
 
