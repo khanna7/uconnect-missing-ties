@@ -90,6 +90,8 @@
    ## COMPARE respondent attributes between Facebook and survey
    w1_svy_data <- read.csv("/project/khanna7/Projects/UConnect/UConnect_PrEP/Regressions/ego.data.w.couponinfo_n623.csv")
    fb_not_chicago <- which(respondent_data$fb_city_chicago != 1)
+   fb.chicago_na <- which(is.na(respondent_data$fb_city_chicago))
+   fb_not_chicago <- c(fb_not_chicago, fb.chicago_na)
    fb_not_chicago_suid <- respondent_data$suid[fb_not_chicago]
    fb_not_chicago_suid_in_svy <- which(w1_svy_data$su_id %in% fb_not_chicago_suid)
    
@@ -109,4 +111,16 @@
    ## In the last 7 days, that is since [DAY] of last week, how many nights 
    ## did you sleep somewhere other than [CITY AREA]? (SLEEP7DYS)
    w1_svy_data$sleep7dys[fb_not_chicago_suid_in_svy]
+   
+## Nonrespondent attributes
+   ## location (if not Chicago, then where?)
+   dim(alter_data)
+   table(alter_data$fb_city_chicago, exclude=NULL)
+   table(alter_data$fb_state, exclude=NULL))
+   
+   xtabs(~factor(alter_data$fb_state, exclude=NULL) + 
+          factor(alter_data$fb_city_chicago, exclude=NULL))
+   
+   ## SAVE
+   save.image("data_descriptives.RData")
    
