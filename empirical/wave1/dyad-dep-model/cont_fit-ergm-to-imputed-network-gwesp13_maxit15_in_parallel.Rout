@@ -1,0 +1,80 @@
+
+R version 3.2.1 Patched (2015-07-12 r68650) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> ## create network with unobserved edges from wave 1
+>    rm(list=ls())
+> 
+>    ## libraries
+>    library(Rmpi)
+[midway256:15742] [db_pmi.c:457:commit] PMI_KVS_Commit: Operation failed
+[midway256][[61653,1],0][btl_openib_proc.c:157:mca_btl_openib_proc_create] [btl_openib_proc.c:157] ompi_modex_recv failed for peer [[61653,1],1]
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+[midway256][[61653,1],0][btl_tcp_proc.c:132:mca_btl_tcp_proc_create] ompi_modex_recv: failed with return value=-48
+--------------------------------------------------------------------------
+At least one pair of MPI processes are unable to reach each other for
+MPI communications.  This means that no Open MPI device has indicated
+that it can be used to communicate between these processes.  This is
+an error; Open MPI requires that all MPI processes be able to reach
+each other.  This error can sometimes be the result of forgetting to
+specify the "self" BTL.
+
+  Process 1 ([[61653,1],0]) is on host: midway256
+  Process 2 ([[61653,1],1]) is on host: unknown!
+  BTLs attempted: openib self tcp
+
+Your MPI job is now going to abort; sorry.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+MPI_INIT has failed because at least one MPI process is unreachable
+from another.  This *usually* means that an underlying communication
+plugin -- such as a BTL or an MTL -- has either not loaded or not
+allowed itself to be used.  Your MPI job will now abort.
+
+You may wish to try to narrow down the problem;
+
+ * Check the output of ompi_info to see which BTL/MTL plugins are
+   available.
+ * Run your application with MPI_THREAD_SINGLE.
+ * Set the MCA parameter btl_base_verbose to 100 (or mtl_base_verbose,
+   if using MTL-based communications) to see exactly which
+   communication plugins were considered and/or discarded.
+--------------------------------------------------------------------------
+*** An error occurred in MPI_Init
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and potentially your MPI job)
+[midway256:15742] Local abort before MPI_INIT completed successfully; not able to aggregate error messages, and not able to guarantee that all other processes were killed!

@@ -19,9 +19,9 @@
                                        constraints=~observed,
                                        control=control.simulate.ergm(
                                        #MCMC.burnin=1e6, 
-                                       MCMC.burnin=1e7,     
+                                       MCMC.burnin=1e8,     
                                        #MCMC.interval=1e5
-                                       MCMC.interval=1e6
+                                       MCMC.interval=1e7
                                        )
        )
    }
@@ -32,7 +32,7 @@
    
    ((6636*2)/334)/333 #density of observed R-R quadrant
    (44402)/(334*734) #density of observed R-NR quadrant
-   ((mean(unlist(edgecount))-51000*2)/734)/733 #density of simulated NR-NR quadrant
+   ((mean(unlist(edgecount))-51000)*2)/734/733 #density of simulated NR-NR quadrant
    
    ## save
    save.image("ten_simulated_networks.RData")

@@ -116,7 +116,7 @@
    ## location (if not Chicago, then where?)
    dim(alter_data)
    table(alter_data$fb_city_chicago, exclude=NULL)
-   table(alter_data$fb_state, exclude=NULL))
+   table(alter_data$fb_state, exclude=NULL)
    
    xtabs(~factor(alter_data$fb_state, exclude=NULL) + 
           factor(alter_data$fb_city_chicago, exclude=NULL))

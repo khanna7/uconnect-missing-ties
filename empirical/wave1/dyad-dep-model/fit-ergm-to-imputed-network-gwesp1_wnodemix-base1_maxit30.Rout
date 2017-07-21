@@ -1,0 +1,883 @@
+
+R version 3.2.1 Patched (2015-07-12 r68650) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> ## create network with unobserved edges from wave 1
+>    rm(list=ls())
+> 
+>    ## libraries
+>    library(network)
+network: Classes for Relational Data
+Version 1.13.0 created on 2015-08-31.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+>    library(ergm)
+Loading required package: statnet.common
+
+ergm: version 3.5.1, created on 2015-10-18
+Copyright (c) 2015, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Skye Bender-deMoll, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: If you use custom ERGM terms based on ‘ergm.userterms’ version
+prior to 3.1, you will need to perform a one-time update of the package
+boilerplate files (the files that you did not write or modify) from
+‘ergm.userterms’ 3.1 or later. See help('eut-upgrade') for
+instructions.
+
+>    library(sna)
+sna: Tools for Social Network Analysis
+Version 2.3-2 created on 2014-01-13.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+
+Attaching package: ‘sna’
+
+The following object is masked from ‘package:network’:
+
+    %c%
+
+> 
+>    ## data
+>    load(file="gwesp-setup.RData")
+> 
+>    ## Fit ergm with edges + nodecov('respdeg')
+>    ergm.imputed_network <- ergm(imputed_network ~ edges +
++                                                   nodecov('respdeg')+
++                                                   gwesp(1, fixed=TRUE)+
++                                                   nodemix("respondent", base=1),
++                                                   verbose=TRUE,
++                                 control=control.ergm(MCMLE.maxit=50)
++                                 )
+Evaluating network in model
+Initializing Metropolis-Hastings proposal(s): ergm:MH_TNT ergm:MH_listTNT
+Initializing model.
+Using initial method 'MPLE'.
+Fitting initial model.
+MPLE covariate matrix has 148560 rows.
+Fitting ERGM.
+Starting maximum likelihood estimation via MCMLE:
+Density guard set to 1064654 from an initial count of 53006  edges.
+Iteration 1 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+       -6.22202942         0.04011885         0.26791442         0.84039068 
+mix.respondent.1.1 
+        0.00000000 
+Sampler accepted  61.503% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         26240.577        2541377.437          74594.721           1906.986 
+mix.respondent.1.1 
+          -865.168 
+Sampler accepted  69.525% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26063.57         2645375.38           73560.15               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -177.0049        103997.9414         -1034.5723         -1906.9863 
+mix.respondent.1.1 
+          865.1680 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0538066029548645  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 2 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -6.241270887        0.040045689        0.278526475        0.835170940 
+mix.respondent.1.1 
+       0.004884627 
+Sampler accepted  61.044% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         27972.401        2759764.069          79495.567           2199.973 
+mix.respondent.1.1 
+          -977.498 
+Sampler accepted  68.799% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26783.03         2741447.56           75532.78               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -1189.369         -18316.507          -3962.782          -2199.973 
+mix.respondent.1.1 
+           977.498 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0193192064762116  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 3 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+       -7.02648531         0.03954423         0.58169213         0.82944329 
+mix.respondent.1.1 
+       -0.01614035 
+Sampler accepted  61.197% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        28020.6807       2763783.1396         79676.8731          2145.6611 
+mix.respondent.1.1 
+         -979.4521 
+Sampler accepted  69.123% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26802.87         2738764.18           75660.40               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1217.8154        -25018.9629         -4016.4733         -2145.6611 
+mix.respondent.1.1 
+          979.4521 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0237774848937989  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by 4.684 
+Iteration 4 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+       -5.96441317         0.03987031         0.20442223         0.77225846 
+mix.respondent.1.1 
+        0.04262013 
+Sampler accepted  61.134% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         28924.349        2857880.374          82103.879           1864.821 
+mix.respondent.1.1 
+          -843.373 
+Sampler accepted  68.930% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          27812.88         2838456.38           78354.07               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -1111.474         -19423.998          -3749.806          -1864.821 
+mix.respondent.1.1 
+           843.373 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0311345607042313  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 5 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+       -6.70151181         0.03998965         0.46807843         0.74926368 
+mix.respondent.1.1 
+        0.06476039 
+Sampler accepted  60.923% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         28853.269        2863408.393          81961.651           1613.394 
+mix.respondent.1.1 
+          -786.584 
+Sampler accepted  68.705% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          27882.96         2850210.50           78594.69               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -970.3037        -13197.8887         -3366.9600         -1613.3936 
+mix.respondent.1.1 
+          786.5840 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0282691866159439  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 6 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -10.08113797         0.04087277         1.64696732         0.87864178 
+mix.respondent.1.1 
+        0.16658872 
+Sampler accepted  60.087% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        28558.0742       2839075.9043         81265.1645          2339.4238 
+mix.respondent.1.1 
+         -652.5986 
+Sampler accepted  68.000% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26637.92         2729811.66           75357.28               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1920.1533       -109264.2432         -5907.8851         -2339.4238 
+mix.respondent.1.1 
+          652.5986 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0185609012842178  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by 0.1625 
+Iteration 7 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -10.32817674         0.04139699         1.71907508         0.87305847 
+mix.respondent.1.1 
+        0.18708958 
+Sampler accepted  59.612% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        28269.3848       2828121.2354         80493.3823          2284.6045 
+mix.respondent.1.1 
+         -620.6787 
+Sampler accepted  67.519% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26660.70         2738512.83           75439.66               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1608.6816        -89608.4092         -5053.7187         -2284.6045 
+mix.respondent.1.1 
+          620.6787 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0155686885118484  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 8 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -10.67623819         0.04159465         1.83606968         0.88805361 
+mix.respondent.1.1 
+        0.20220293 
+Sampler accepted  59.266% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        28012.7744       2805873.0596         79800.0079          2277.5547 
+mix.respondent.1.1 
+         -575.7832 
+Sampler accepted  67.563% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26529.50         2722827.80           75091.88               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1483.2725        -83045.2588         -4708.1269         -2277.5547 
+mix.respondent.1.1 
+          575.7832 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0217858552932739  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 9 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -11.10430828         0.04160628         1.99227072         0.88575522 
+mix.respondent.1.1 
+        0.22418467 
+Sampler accepted  59.293% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        28082.5547       2820051.7549         79993.8484          2173.0498 
+mix.respondent.1.1 
+         -570.1963 
+Sampler accepted  67.419% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26556.86         2728473.78           75185.48               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1525.6982        -91577.9766         -4808.3653         -2173.0498 
+mix.respondent.1.1 
+          570.1963 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0143878161907196  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 10 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -11.48550968         0.04214541         2.11090587         0.90094976 
+mix.respondent.1.1 
+        0.23722027 
+Sampler accepted  58.905% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27943.2021       2813016.0654         79627.0849          2222.5625 
+mix.respondent.1.1 
+         -546.8027 
+Sampler accepted  67.106% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26481.07         2722237.53           74992.53               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1462.1367        -90778.5342         -4634.5549         -2222.5625 
+mix.respondent.1.1 
+          546.8027 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0201981738209725  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 11 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -12.27900919         0.04211859         2.40551895         0.87521265 
+mix.respondent.1.1 
+        0.25376100 
+Sampler accepted  58.795% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27802.3066       2805660.2744         79255.4247          1876.3662 
+mix.respondent.1.1 
+         -462.8438 
+Sampler accepted  66.972% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26567.01         2732920.92           75244.45               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1235.3008        -72739.3545         -4010.9766         -1876.3662 
+mix.respondent.1.1 
+          462.8438 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0141913145780563  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 12 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -12.50719457         0.04193471         2.49622029         0.86652046 
+mix.respondent.1.1 
+        0.24025731 
+Sampler accepted  58.901% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27696.2002       2798397.3848         78970.7836          1784.5342 
+mix.respondent.1.1 
+         -461.7822 
+Sampler accepted  67.062% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26740.64         2748623.77           75728.89               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -955.5635        -49773.6152         -3241.8930         -1784.5342 
+mix.respondent.1.1 
+          461.7822 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0149639248847962  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 13 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -12.93007777         0.04186794         2.65268500         0.86248155 
+mix.respondent.1.1 
+        0.24702508 
+Sampler accepted  58.956% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27931.7871       2821618.4463         79615.1422          1753.7139 
+mix.respondent.1.1 
+         -413.2275 
+Sampler accepted  66.988% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26659.40         2740995.83           75516.37               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1272.3867        -80622.6201         -4098.7719         -1753.7139 
+mix.respondent.1.1 
+          413.2275 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.014289565384388  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 14 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -13.77747822         0.04164223         2.96733162         0.85430156 
+mix.respondent.1.1 
+        0.24332863 
+Sampler accepted  58.862% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27469.2959       2773907.6846         78360.2976          1612.1729 
+mix.respondent.1.1 
+         -461.0605 
+Sampler accepted  67.117% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26408.84         2712940.72           74854.93               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        -1060.4531        -60966.9609         -3505.3626         -1612.1729 
+mix.respondent.1.1 
+          461.0605 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0144488513469696  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 15 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -14.49310935         0.04142156         3.23722473         0.84410728 
+mix.respondent.1.1 
+        0.21724930 
+Sampler accepted  58.898% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27293.1328       2759981.8906         77885.3018          1358.8838 
+mix.respondent.1.1 
+         -515.3584 
+Sampler accepted  67.178% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26502.74         2719525.15           75128.96               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -790.3906        -40456.7393         -2756.3443         -1358.8838 
+mix.respondent.1.1 
+          515.3584 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0151146501302719  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 16 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -14.67707459         0.04137623         3.30590497         0.84251941 
+mix.respondent.1.1 
+        0.22716557 
+Sampler accepted  59.024% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27199.7979       2743629.6787         77629.0795          1292.3027 
+mix.respondent.1.1 
+         -437.6309 
+Sampler accepted  67.236% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26428.93         2711629.25           74936.23               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -770.8633        -32000.4307         -2692.8526         -1292.3027 
+mix.respondent.1.1 
+          437.6309 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0121176242828369  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 17 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -15.75800148         0.04131193         3.70890142         0.83529555 
+mix.respondent.1.1 
+        0.20868138 
+Sampler accepted  58.925% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27506.7305       2777761.3965         78482.1445          1433.1934 
+mix.respondent.1.1 
+         -433.4775 
+Sampler accepted  67.155% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26576.45         2723879.48           75354.96               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -930.2783        -53881.9131         -3127.1796         -1433.1934 
+mix.respondent.1.1 
+          433.4775 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0154780671000481  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 18 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -15.92271416         0.03979419         3.82023045         0.79347977 
+mix.respondent.1.1 
+        0.16663648 
+Sampler accepted  59.770% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27127.7598       2722650.1221         77439.9318          1064.8682 
+mix.respondent.1.1 
+         -467.9199 
+Sampler accepted  68.054% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26476.59         2703846.99           75089.41               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -651.1709        -18803.1357         -2350.5185         -1064.8682 
+mix.respondent.1.1 
+          467.9199 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0112496465444565  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 19 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -16.85564652         0.03981292         4.16568844         0.78044611 
+mix.respondent.1.1 
+        0.15394524 
+Sampler accepted  59.779% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27351.0938       2741366.4922         78053.1330          1083.7939 
+mix.respondent.1.1 
+         -501.9033 
+Sampler accepted  67.886% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26798.73         2736674.41           75981.44               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -552.3604         -4692.0869         -2071.6882         -1083.7939 
+mix.respondent.1.1 
+          501.9033 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.012556403875351  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 20 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -27.93910490         0.04191247         8.15799464         0.86522905 
+mix.respondent.1.1 
+        0.08656735 
+Sampler accepted  57.787% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        27794.8936       2815809.0889         79313.6370          1662.9365 
+mix.respondent.1.1 
+         -585.8691 
+Sampler accepted  66.171% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26962.51         2760009.51           76515.64               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         -832.3857        -55799.5771         -2797.9954         -1662.9365 
+mix.respondent.1.1 
+          585.8691 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.013056218624115  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 21 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -28.13897483         0.04197450         8.22717531         0.86712448 
+mix.respondent.1.1 
+        0.08765339 
+Sampler accepted  57.664% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         27774.015        2825848.627          79260.510           1774.810 
+mix.respondent.1.1 
+          -647.415 
+Sampler accepted  65.845% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          26834.14         2752982.62           76172.51               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          -939.875         -72866.009          -3087.998          -1774.810 
+mix.respondent.1.1 
+           647.415 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0107574611902237  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by 8.984 
+Iteration 22 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -22.12643979         0.05117607         5.65159702         1.01691932 
+mix.respondent.1.1 
+        0.55776655 
+Sampler accepted  51.918% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        23968.7559       2627965.3252         68904.4296          -257.3916 
+mix.respondent.1.1 
+         -326.3662 
+Sampler accepted  60.691% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          25240.57         2655649.65           71772.81               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         1271.8105         27684.3213          2868.3831           257.3916 
+mix.respondent.1.1 
+          326.3662 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.00842525810003282  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by 0.001678 
+Iteration 23 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -22.17514107         0.05111183         5.67146073         1.01632951 
+mix.respondent.1.1 
+        0.58010476 
+Sampler accepted  51.520% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        24073.1973       2670244.7158         69193.8392          -209.1113 
+mix.respondent.1.1 
+         -190.5391 
+Sampler accepted  60.630% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          25216.61         2655689.13           71702.99               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         1143.4082        -14555.5820          2509.1519           209.1113 
+mix.respondent.1.1 
+          190.5391 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.00729306787252427  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 24 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -22.99176550         0.05095083         5.97475588         1.01850822 
+mix.respondent.1.1 
+        0.58350113 
+Sampler accepted  51.506% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        23883.6924       2648985.7480         68677.9184          -247.7109 
+mix.respondent.1.1 
+         -225.0381 
+Sampler accepted  60.540% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          25056.57         2638374.06           71269.24               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         1172.8770        -10611.6875          2591.3213           247.7109 
+mix.respondent.1.1 
+          225.0381 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.00873336195945741  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by 0.6045 
+Iteration 25 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -22.89046863         0.04991957         5.97737091         0.98438596 
+mix.respondent.1.1 
+        0.62957339 
+Sampler accepted  52.069% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        24116.7148       2659589.7461         69311.8270          -325.8408 
+mix.respondent.1.1 
+         -143.0029 
+Sampler accepted  61.205% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          25258.38         2653821.69           71825.25               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+         1141.6631         -5768.0547          2513.4181           325.8408 
+mix.respondent.1.1 
+          143.0029 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.00979597866535187  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 26 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -24.34033719         0.04969431         6.52059119         0.98143108 
+mix.respondent.1.1 
+        0.60338764 
+Sampler accepted  52.273% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+       24239.12500      2665424.24512        69651.46344         -180.49805 
+mix.respondent.1.1 
+         -69.55957 
+Sampler accepted  61.215% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          25430.86         2667590.62           72308.84               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        1191.73828         2166.37012         2657.37958          180.49805 
+mix.respondent.1.1 
+          69.55957 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.00836324691772463  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 27 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -25.61686800         0.04945187         6.98942279         1.01148091 
+mix.respondent.1.1 
+        0.59104844 
+Sampler accepted  52.317% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from unconstrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+       23963.17676      2632258.11426        68900.89080         -139.86328 
+mix.respondent.1.1 
+         -75.72559 
+Sampler accepted  61.389% of 1048576 proposed steps.
+Sample size = 1024 by 1024 
+Back from constrained MCMC. Average statistics:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+          25017.52         2622943.91           71188.68               0.00 
+mix.respondent.1.1 
+              0.00 
+Average estimating equation values:
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+        1054.33984        -9314.20703         2287.79168          139.86328 
+mix.respondent.1.1 
+          75.72559 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.00857979804277421  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by < 0.0001 
+Iteration 28 of at most 50 with parameter: 
+             edges    nodecov.respdeg      gwesp.fixed.1 mix.respondent.0.1 
+      -27.79073371         0.05362513         7.61357382         1.12463386 
+mix.respondent.1.1 
+        0.79414695 

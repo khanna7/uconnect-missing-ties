@@ -1,0 +1,171 @@
+
+R version 3.2.1 Patched (2015-07-12 r68650) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> ## create network with unobserved edges from wave 1
+>    rm(list=ls())
+> 
+> ################################
+> ## parallelization frontmatter
+> ## From: https://statnet.csde.washington.edu/trac/wiki/ergmParallel
+> 
+>    library(parallel)
+> 
+>    # create a cluster with 2 processes per node
+>    np <- detectCores()
+>    np
+[1] 32
+> #################################
+> 
+> ## Fitting procedure
+> 
+>    ## libraries
+>    library(network)
+network: Classes for Relational Data
+Version 1.13.0 created on 2015-08-31.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+>    library(ergm)
+Loading required package: statnet.common
+
+ergm: version 3.5.1, created on 2015-10-18
+Copyright (c) 2015, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Skye Bender-deMoll, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: If you use custom ERGM terms based on ‘ergm.userterms’ version
+prior to 3.1, you will need to perform a one-time update of the package
+boilerplate files (the files that you did not write or modify) from
+‘ergm.userterms’ 3.1 or later. See help('eut-upgrade') for
+instructions.
+
+>    library(sna)
+sna: Tools for Social Network Analysis
+Version 2.3-2 created on 2014-01-13.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+
+Attaching package: ‘sna’
+
+The following object is masked from ‘package:network’:
+
+    %c%
+
+> 
+>    ## data
+>    load(file="gwesp-setup.RData")
+> 
+>    ## Fit ergm with edges + nodecov('respdeg')
+>    ergm.imputed_network <- ergm(imputed_network ~
++                                 edges+
++                                     gwesp(2, fixed=TRUE)+
++                                         gwdsp(2, fixed=TRUE)+
++                                         nodecov("respdeg"),
++                                 verbose=TRUE,
++                                 eval.loglik=FALSE,
++                                 control=control.ergm(MCMLE.maxit=2,
++                                                      parallel=np,
++                                                      init=c(-4.91,
++                                                             0.135,
++                                                             -0.0128,
++                                                             0.036)
++                                                      )
++                                 )
+Evaluating network in model
+Initializing Metropolis-Hastings proposal(s): ergm:MH_TNT ergm:MH_listTNT
+Initializing model.
+Using initial method 'MPLE'.
+Fitting initial model.
+Using PSOCK.
+Fitting ERGM.
+Starting maximum likelihood estimation via MCMLE:
+Density guard set to 1064654 from an initial count of 53006  edges.
+Iteration 1 of at most 2 with parameter: 
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+        -4.9100          0.1350         -0.0128          0.0360 
+Cluster passed by user.
+Sample size = 1024 by 32 
+Back from unconstrained MCMC. Average statistics:
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+       27478.17       225534.25       454747.72      2485714.13 
+Cluster passed by user.
+Sample size = 1024 by 32 
+Back from constrained MCMC. Average statistics:
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+       30809.53       253369.06       451028.62      2822436.78 
+Average estimating equation values:
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+       3331.362       27834.811       -3719.098      336722.654 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.132481724023819  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+The log-likelihood improved by 1.09 
+Iteration 2 of at most 2 with parameter: 
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+    -5.01469997      0.14956737     -0.01279337      0.03588060 
+Cluster passed by user.
+Sample size = 1024 by 32 
+Back from unconstrained MCMC. Average statistics:
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+       33020.88       269751.85       527964.75      3005065.89 
+Cluster passed by user.
+Sample size = 1024 by 32 
+Back from constrained MCMC. Average statistics:
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+       39027.75       317677.49       496024.23      3634146.21 
+Average estimating equation values:
+          edges   gwesp.fixed.2   gwdsp.fixed.2 nodecov.respdeg 
+       6006.872       47925.637      -31940.523      629080.319 
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  0.0787972882390024  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx with missing (no optim)
+Starting MCMC s.e. computation.
+The log-likelihood improved by 0.3872 
+MCMLE estimation did not converge after 2 iterations. The estimated coefficients may not be accurate. Estimation may be resumed by passing the coefficients as initial values; see 'init' under ?control.ergm for details.
+
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.
+>                                             
+>    ## save
+>    save.image("cont-fitted_ergm_imputed_network_gwesp2-gwdsp2-w-edges-nodecov-respdegin_parallel_wo_mpi.RData")
+> 
+> proc.time()
+      user     system    elapsed 
+103492.972     14.363 105816.932 

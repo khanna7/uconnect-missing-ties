@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#SBATCH --ntasks=100
+#SBATCH --time=90
+#SBATCH --output=parallel-simulation
+#SBATCH --mem-per-cpu=5000
+
+# Always use -n 1 for the Rmpi package. It spawns additional processes dynamically
+mpirun -n 1 Rscript simulate-from-fitted-ergm-in-parallel-100.R

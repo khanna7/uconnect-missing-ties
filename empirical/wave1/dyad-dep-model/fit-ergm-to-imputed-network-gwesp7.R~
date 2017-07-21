@@ -1,0 +1,23 @@
+## create network with unobserved edges from wave 1
+   rm(list=ls())
+
+   ## libraries
+   library(network)
+   library(ergm)
+   library(sna)
+
+   ## data
+   load(file="imputed_network.RData")
+
+   ## Add 'respdeg' attribute
+   deg.imputed_network <- degree(imputed_network)
+   imputed_network%v%"respdeg" <- deg.imputed_network
+
+   ## Fit ergm with edges + nodecov('respdeg')
+   ergm.imputed_network <- ergm(imputed_network ~ edges +
+                                                  nodecov('respdeg')+
+                                                  gwesp(7, fixed=TRUE),
+                                                  verbose=TRUE)
+                                            
+   ## save
+   save.image("fitted_ergm_imputed_network_gwesp7.RData")

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#SBATCH --job-name=fit_gwesp_in_parallel
+#SBATCH --output=gwesp_parallel_fit_base13_noedges.out
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=16
+#SBATCH --exclusive
+
+# Always use -n 1 for the Rmpi package. It spawns additional processes dynamically
+mpirun -n 1 Rscript fit-ergm-to-imputed-network-gwesp1_wnodemix-base13_in_parallel.R 

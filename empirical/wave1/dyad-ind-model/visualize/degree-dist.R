@@ -34,12 +34,14 @@ levels(resp_deg_dist_data_df$network) <- rev(levels(resp_deg_dist_data_df$networ
 
 resp_deg_dist_data_df_raw_only <- resp_deg_dist_data_df[299:596,]
 resp_deg_dist_data_df_raw_only$network <- "raw_&_imputed"
-p_resp_deg_dist_raw_only <- ggplot(resp_deg_dist_data_df_raw_only, 
+p_resp_deg_dist_raw_only <- 
+  ggplot(resp_deg_dist_data_df_raw_only, 
                                    aes(x=frequency,  
                                        color=network))+
-  geom_histogram(binwidth=10)+
-  xlab("Degrees")+ylab("Number of nodes")+
-  scale_x_continuous(breaks=(seq(0, 1200, by=100)))+
+  geom_histogram(binwidth=10, aes(y=..count../sum(..count..)*100))+
+  xlab("Degrees")+ylab("% of nodes")+
+  scale_x_continuous(breaks=(seq(0, 600, by=100)))+
+  scale_y_continuous(breaks=seq(0, 30, 5))+
   ggtitle("Degree Distribution for Respondents")+
   scale_color_manual(values=c("#00BFC4"))+
   theme_minimal()
@@ -47,9 +49,10 @@ p_resp_deg_dist_raw_only <- ggplot(resp_deg_dist_data_df_raw_only,
 p_nonresp_deg_dist <- ggplot(nonresp_deg_dist_data_df, 
                              aes(x=frequency,  
                                  color=network))+
-  geom_histogram(binwidth=10)+
-  xlab("Degrees")+ylab("Number of nodes")+
-  scale_x_continuous(breaks=(seq(0, 1200, by=100)))+
+  geom_histogram(binwidth=10, aes(y=..count../sum(..count..)*100))+
+  xlab("Degrees")+ylab("% of nodes")+
+  scale_x_continuous(breaks=(c(seq(0, 30, 30), seq(100, 600, by=100))))+
+  scale_y_continuous(breaks=seq(0, 30, 5))+
   ggtitle("Degree Distribution for Nonrespondents")+
   theme_minimal()
 
