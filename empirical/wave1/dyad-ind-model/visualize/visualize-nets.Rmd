@@ -30,7 +30,7 @@ Networks without (i.e "control", left) and with tie imputation are shown below.
 
   #pdf(file="ggnet-ex.pdf")
   ggnet2(r0_net, color="respondent", size=1,
-         palette = "Set2")+ggtitle("Raw Data") 
+         palette = "Set2")+ggtitle("Observed Data") 
   
   ## PLOT IMPUTED NETWORK
   imp_networks <- readRDS("../sim-from-ergm/imputed_100_nets_w_nodemix.RDS")
@@ -133,7 +133,7 @@ raw_p <- ggnet2(r0_net_no_isolates, color="respondent", size=1,
 imp_p <- ggnet2(imp_to_plot_no_isolates, color="respondent", size=1,
             palette = "Set2")#+ggtitle("Imputed Data")
 
-pdf(file="nets_2row.pdf")
+png(file="nets_2row.png")
 grid.arrange(raw_p, imp_p, nrow=2)
 dev.off()
 
@@ -144,6 +144,7 @@ dev.off()
 png(file="imp_p.png")
 imp_p
 dev.off()
+```
 
 ```{r}
 save.image(file="data_to_plot_nets.RData")
