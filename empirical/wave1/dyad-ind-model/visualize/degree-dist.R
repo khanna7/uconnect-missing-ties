@@ -33,7 +33,7 @@ levels(resp_deg_dist_data_df$network) <- rev(levels(resp_deg_dist_data_df$networ
 ## nonrespondent data on raw and imputed networks
 
 resp_deg_dist_data_df_raw_only <- resp_deg_dist_data_df[299:596,]
-resp_deg_dist_data_df_raw_only$network <- "raw_&_imputed"
+resp_deg_dist_data_df_raw_only$network <- "observed_&_imputed"
 p_resp_deg_dist_raw_only <- 
   ggplot(resp_deg_dist_data_df_raw_only, 
                                    aes(x=frequency,  
@@ -46,6 +46,7 @@ p_resp_deg_dist_raw_only <-
   scale_color_manual(values=c("#00BFC4"))+
   theme_minimal()
 
+nonresp_deg_dist_data_df <- resp_deg_dist_data_df[1:298,]
 p_nonresp_deg_dist <- ggplot(nonresp_deg_dist_data_df, 
                              aes(x=frequency,  
                                  color=network))+
