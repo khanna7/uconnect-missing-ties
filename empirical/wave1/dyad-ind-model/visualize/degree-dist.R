@@ -30,8 +30,6 @@ colnames(resp_deg_dist_data_df) <- c("frequency", "network")
 resp_deg_dist_data_df$network <- as.factor(resp_deg_dist_data_df$network)
 levels(resp_deg_dist_data_df$network) <- rev(levels(resp_deg_dist_data_df$network))
 
-## nonrespondent data on raw and imputed networks
-
 resp_deg_dist_data_df_raw_only <- resp_deg_dist_data_df[299:596,]
 resp_deg_dist_data_df_raw_only$network <- "observed_&_imputed"
 p_resp_deg_dist_raw_only <- 
@@ -46,7 +44,13 @@ p_resp_deg_dist_raw_only <-
   scale_color_manual(values=c("#00BFC4"))+
   theme_minimal()
 
-nonresp_deg_dist_data_df <- resp_deg_dist_data_df[1:298,]
+## nonrespondent data on raw and imputed networks
+nonresp_deg_dist_data <- as.data.frame(c(r0_net_degrees_nonrespondents, 
+                                      imp_net_degrees_nonrespondents))
+nonresp_deg_dist_data_df <- as.data.frame(nonresp_deg_dist_data)
+nonresp_deg_dist_data_df[,2] <- c(rep("observed", 587), rep("imputed", 587))                                                           
+colnames(nonresp_deg_dist_data_df) <- c("frequency", "network")
+
 p_nonresp_deg_dist <- ggplot(nonresp_deg_dist_data_df, 
                              aes(x=frequency,  
                                  color=network))+
@@ -60,3 +64,6 @@ p_nonresp_deg_dist <- ggplot(nonresp_deg_dist_data_df,
 png(file="raw_and_imputed_deg_dist.png")
 grid.arrange(p_resp_deg_dist_raw_only, p_nonresp_deg_dist, nrow=2)
 dev.off()
+
+## save
+save.image(file="deg-dis.RData")
