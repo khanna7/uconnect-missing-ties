@@ -1,7 +1,7 @@
 # uconnect-missing-ties
 
 ## Steps to connect to Gardner
-   See introduction at http://cri.uchicago.edu/wp-content/uploads/2017/04/Gardner-Part-1.pdf
+   See introduction at http://cri.uchicago.edu/wp-content/uploads/2017/04/Gardner-Part-1.pdf       
    Quick tutorial at https://albertsk.files.wordpress.com/2011/12/pbs.pdf
    
 Steps to access the data:   
