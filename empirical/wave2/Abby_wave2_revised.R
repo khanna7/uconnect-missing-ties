@@ -1,8 +1,7 @@
 
 library(igraph)
-library(ergm)
-library(sna)
 library(network)
+library(intergraph)
 
 wave2nodes <- read.csv("../../../Facebook-from-Aditya/Wave_2/Facebook/fb_graph_resp_edges_only_nodes.csv")
 wave2edges <- read.csv("../../../Facebook-from-Aditya/Wave_2/Facebook/fb_graph_resp_edges_only_edges.csv")
@@ -14,8 +13,13 @@ wave1edges <- read.csv("../../../Facebook-from-Aditya/Facebook_Identified_4.15.2
 wave1.ig <- graph_from_data_frame(wave1edges[,c(1:2)], directed=FALSE, vertices=wave1nodes[,1])
 
 
+##Find common nodes
+w1_in_w2_id <- which(wave1nodes$id %in% wave2nodes$id)
+w2_in_w1_id <- which(wave2nodes$id %in% wave1nodes$id)
+
+w1_com_resp_ig <- induced_subgraph(wave1.ig, vids=w1_in_w2_id)
+w2_com_resp_ig <- induced_subgraph(wave2.ig, vids=w2_in_w1_id)
 respondentsmatch <- wave1nodes[wave1nodes$fb_full_name %in% wave2nodes$fb_full_name,]
-respondentsmatch
 length(respondentsmatch)
 length(wave1nodes$fb_full_names)
 
@@ -24,7 +28,7 @@ wave1.fb.edges<- read.csv("../../../Facebook-from-Aditya/Facebook_Identified_4.1
  wave1.fb.ig <- graph_from_data_frame(wave1.fb.edges[,c(1:2)], directed=FALSE, vertices=wave1.fb.nodes[,1])
 
 wave2.fb.edges<- read.csv("../../../Facebook-from-Aditya/Wave_2/Facebook/fb_graph_edges.csv")
-  wave2.fb.nodes <- read.csv("../../../Wave_2/Facebook/fb_graph_nodes.csv")
+  wave2.fb.nodes <- read.csv("../../../Facebook-from-Aditya/Wave_2/Facebook/fb_graph_nodes.csv")
  wave2.fb.ig <- graph_from_data_frame(wave1.fb.edges[,c(1:2)], directed=FALSE, vertices=wave1.fb.nodes[,1])
 
 wave1.all.10 <- which(degree(wave1.fb.ig) >= length(wave1nodes$id)*.1)
@@ -33,7 +37,6 @@ wave1.fb.ig.10 <- induced_subgraph(wave1.fb.ig, v=wave1.all.10)
 wave2.all.10 <- which(degree(wave2.fb.ig) >= length(wave2nodes$id)*.1)
 wave2.fb.ig.10 <- induced_subgraph(wave2.fb.ig, v=wave2.all.10)
 
-wave1.all.10
 ## num nodes
    vcount(wave1.fb.ig.10)
    vcount(wave2.fb.ig.10)
@@ -77,10 +80,15 @@ hist(deg.wave2.fb.ig.10)
    length(wave2_resp)
 
 
-wave1.wave2.all.ig <- union(c(wave1.ig,wave2.ig,wave1.fb.ig.10, wave2.fb.ig.10), byname="auto")
+wave1.wave2.all.ig <- igraph::union(wave1.ig,wave2.ig)
+wave1.wave2.all.ig <- igraph::union(wave1.fb.ig.10,wave1.wave2.all.ig)
+wave1.wave2.all.ig <- igraph::union(wave2.fb.ig.10, wave1.wave2.all.ig)
+
+save(wave1.wave2.all.ig, file = "wave1.wave2.all.ig") 
+wave1.wave2.all.net <- asNetwork(wave1.wave2.all.ig)
 
 ## order vertex names to avoid trouble later
-   vnames <- wave1.wave2.all.ig %v% "vertex.names"
+   vnames <- wave1.wave2.all.net %v% "vertex.names"
    resp.1 <- which(substr(vnames, 1, 4) == "1111")
    resp.2 <- which(substr(vnames, 1, 4) == "2222")
    vnames.nr <- vnames[-c(resp.1, resp.2)]
@@ -90,30 +98,13 @@ wave1.wave2.all.ig <- union(c(wave1.ig,wave2.ig,wave1.fb.ig.10, wave2.fb.ig.10),
 
    vnames.ordered <- c(resp.1, resp.2, nonresp)
 
-    permute.vertexIDs(wave1.wave2.all.ig,
+    permute.vertexIDs(wave1.wave2.all.net,
                       vids=vnames.ordered)
 
-   ## add na's to edges of non-participant nodes
-   adj.mat.wave1.wave2.all.ig <- as.matrix.network(wave1.wave2.all.ig, "adjacency")
-   dim(adj.mat.wave1.wave2.all.ig)
-   v.names <- wave1.wave2.all.ig %v% "vertex.names"
-
-   mat.to.impute <- adj.mat.wave1.wave2.all.ig
-   row.names <- substr(rownames(mat.to.impute), 1, 4)
-   col.names <- substr(rownames(mat.to.impute), 1, 4)
-
-  for (i in 1:nrow(mat.to.impute)){
-       for (j in 1:ncol(mat.to.impute)){
-           if (row.names[i] != "1111" && row.names[i] != "2222"){
-               if (col.names[j] != "1111" && col.names[j] != "2222"){
-                   mat.to.impute[i,j] <- NA
-               }
-           }
-       }
-   }
+ 
 
 #create network with unobserved edges from wave1, wave 2
-
+mat.to.impute <- wave1.wave2.all.net
  n <- network.size(mat.to.impute)
    resp <- union(
                  which(substr(mat.to.impute %v% "vertex.names",1,4) == "1111"),
@@ -127,22 +118,7 @@ wave1.wave2.all.ig <- union(c(wave1.ig,wave2.ig,wave1.fb.ig.10, wave2.fb.ig.10),
    respdeg <- sapply(1:n, function(x) sum(mat.to.impute[x,1:nresp]))
    mat.to.impute %v%"respdeg" <- respdeg
 
-   ## Fit ergm with edges + nodecov('respdeg')
-   ergm.imputed_network <- ergm(mat.to.impute ~ edges +
-                                                  nodecov('respdeg')+
-                                                  nodemix('respondent',
-                                                          base=c(1,3)),
-                                                  verbose=TRUE
-                                )
+saveRDS(wave1.wave2.all.net, file = "wave1.wave2.network.rds")
 
-   summary(ergm.imputed_network)
-
-   ### wo nodemix
-   ergm.imputed_network_wonodemix <- ergm(imputed_network ~ edges +
-                                                  nodecov('respdeg'),
-                                                  verbose=TRUE
-                                )
-
-   summary(ergm.imputed_network_wonodemix)
 
 
