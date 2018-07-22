@@ -59,9 +59,9 @@ nresp <- 298
    kp_control_885nodes <- readRDS("../../control-net/control_885nodes_kp_set300.RDS")
    nonresp_kp_after_cutoff <- kp_after_cutoff[kp_after_cutoff > 298]
 
-   resp_kp_control_885nodes <- kp_control_885nodes[which(kp_control_885nodes <= 298)]
+   resp_evcent_control_885nodes <- evcent_control_885nodes[which(evcent_control_885nodes <= 298)]
 
-   resp_sel_in_control_imputed_kp <- intersect(resp_kp_control_885nodes, 
+   resp_sel_in_control_imputed_kp <- intersect(kp_control_885nodes, 
                                            resp_kp_after_cutoff)
    length(resp_sel_in_control_imputed_kp)
 
