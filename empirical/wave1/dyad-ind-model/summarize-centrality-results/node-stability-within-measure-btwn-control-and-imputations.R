@@ -105,10 +105,10 @@ nresp <- 298
       length(resp_sel_in_control_imputed_kp)/length(resp_kp_after_cutoff)
 
       ## nonrespondent PCA on control and sPCA on imputed: overlap
-      length(nonresp_btwn_control_885nodes)/length(nonresp_btwn_after_cutoff)
-      length(nonresp_evcent_control_885nodes)/length(nonresp_evcent_after_cutoff)
-      length(nonresp_bridging_control_885nodes)/length(nonresp_bridging_after_cutoff)
-      length(nonresp_kp_control_885nodes)/length(nonresp_kp_after_cutoff)
+      length(intersect(nonresp_evcent_control_885nodes, nonresp_evcent_after_cutoff))/
+               length(nonresp_evcent_after_cutoff)
+      length(intersect(nonresp_kp_control_885nodes, nonresp_kp_after_cutoff))/
+        length(nonresp_kp_after_cutoff)
       
       ## save object
       save.image("node-stability-witin-measure-btwn-control-and-imputations.RData")
