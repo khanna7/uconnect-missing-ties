@@ -24,44 +24,45 @@ imp_net_degrees_nonrespondents <- imp_net_degrees[299:length(imp_net_degrees)]
 resp_deg_dist_data <- as.data.frame(c(r0_net_degrees_respondents, 
                                       imp_net_degrees_respondents))
 resp_deg_dist_data_df <- as.data.frame(resp_deg_dist_data)
-resp_deg_dist_data_df[,2] <- c(rep("raw", 298), rep("imputed", 298))                                                           
-colnames(resp_deg_dist_data_df) <- c("frequency", "network")
+resp_deg_dist_data_df[,2] <- c(rep("Raw", 298), rep("Imputed", 298))                                                           
+colnames(resp_deg_dist_data_df) <- c("Frequency", "Network")
 
-resp_deg_dist_data_df$network <- as.factor(resp_deg_dist_data_df$network)
-levels(resp_deg_dist_data_df$network) <- rev(levels(resp_deg_dist_data_df$network))
+resp_deg_dist_data_df$Network <- as.factor(resp_deg_dist_data_df$Network)
+levels(resp_deg_dist_data_df$Network) <- rev(levels(resp_deg_dist_data_df$Network))
 
 resp_deg_dist_data_df_raw_only <- resp_deg_dist_data_df[299:596,]
-resp_deg_dist_data_df_raw_only$network <- "observed_&_imputed"
+resp_deg_dist_data_df_raw_only$Network <- "Observed_and_imputed"
 p_resp_deg_dist_raw_only <- 
   ggplot(resp_deg_dist_data_df_raw_only, 
-                                   aes(x=frequency,  
-                                       color=network))+
+                                   aes(x=Frequency,  
+                                       color=Network))+
   geom_histogram(binwidth=10, aes(y=..count../sum(..count..)*100))+
   xlab("Degrees")+ylab("% of nodes")+
   scale_x_continuous(breaks=(seq(0, 600, by=100)))+
   scale_y_continuous(breaks=seq(0, 30, 5))+
-  ggtitle("Degree Distribution for Respondents")+
+  ggtitle("Degree distribution for respondents")+
   scale_color_manual(values=c("#00BFC4"))+
   theme_minimal()
 
-## nonrespondent data on raw and imputed networks
+## nonrespondent data on raw and imputed Networks
 nonresp_deg_dist_data <- as.data.frame(c(r0_net_degrees_nonrespondents, 
                                       imp_net_degrees_nonrespondents))
 nonresp_deg_dist_data_df <- as.data.frame(nonresp_deg_dist_data)
-nonresp_deg_dist_data_df[,2] <- c(rep("observed", 587), rep("imputed", 587))                                                           
-colnames(nonresp_deg_dist_data_df) <- c("frequency", "network")
+nonresp_deg_dist_data_df[,2] <- c(rep("Observed", 587), rep("Imputed", 587))                                                           
+colnames(nonresp_deg_dist_data_df) <- c("Frequency", "Network")
 
 p_nonresp_deg_dist <- ggplot(nonresp_deg_dist_data_df, 
-                             aes(x=frequency,  
-                                 color=network))+
+                             aes(x=Frequency,  
+                                 color=Network))+
   geom_histogram(binwidth=10, aes(y=..count../sum(..count..)*100))+
   xlab("Degrees")+ylab("% of nodes")+
   scale_x_continuous(breaks=(c(seq(0, 30, 30), seq(100, 600, by=100))))+
   scale_y_continuous(breaks=seq(0, 30, 5))+
-  ggtitle("Degree Distribution for Nonrespondents")+
+  ggtitle("Degree distribution for nonrespondents")+
   theme_minimal()
 
-png(file="raw_and_imputed_deg_dist.png")
+png(file="raw_and_imputed_deg_dist.png", width = 7, height = 7, 
+    units = 'in', res = 1200)
 grid.arrange(p_resp_deg_dist_raw_only, p_nonresp_deg_dist, nrow=2)
 dev.off()
 
