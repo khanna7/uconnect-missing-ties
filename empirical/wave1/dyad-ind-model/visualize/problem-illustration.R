@@ -6,7 +6,8 @@ rm(list=ls())
   #prob_mat[2,2] <- 1.5
   dim(prob_mat)
 
-png("Plot3.png", width = 4, height = 4, units = 'in', res = 1200)
+png("problem-illuz.png", width = 7, height = 7, 
+    units = 'in', res = 1200)
 
   image(prob_mat, col=gray(1), xaxt="n", yaxt="n")
   axis(1, at=c(0, 0.5, 1.0), labels=c("Respondents (n=298)", "", "Nonrespondents (n=182,998)"))
