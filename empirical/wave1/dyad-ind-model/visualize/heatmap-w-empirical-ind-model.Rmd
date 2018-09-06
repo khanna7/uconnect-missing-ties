@@ -47,11 +47,11 @@ Now plot its image.
 ```{r, results='hide'}
   customize_image_axes <- function(prop.resp){
   
-  axis(1, at=prop.resp/2, labels="respondents")
-  axis(1, at=(prop.resp+(1-prop.resp)/2), labels="nonrespondents")
+  axis(1, at=prop.resp/2, labels="Respondents")
+  axis(1, at=(prop.resp+(1-prop.resp)/2), labels="Nonrespondents")
   axis(1, at=prop.resp, labels="")
-  axis(2, at=prop.resp/2, labels="respondents")
-  axis(2, at=(prop.resp+(1-prop.resp)/2), labels="nonrespondents")
+  axis(2, at=prop.resp/2, labels="Respondents")
+  axis(2, at=(prop.resp+(1-prop.resp)/2), labels="Nonrespondents")
   axis(2, at=prop.resp, labels="")
 }
 ```  
@@ -92,7 +92,8 @@ customize_image_axes(prop.resp=25/50)
 ```
 
 ```{r}
-pdf(file="test-heatmaps.pdf", width=7, height=10)
+png(file="test-heatmaps.png", width=7, height=10,
+    units = 'in', res = 1200)
 par(mfrow=c(2, 1))
 
 image(freq, col=gray(32:0/32), xaxt="n", yaxt="n")
