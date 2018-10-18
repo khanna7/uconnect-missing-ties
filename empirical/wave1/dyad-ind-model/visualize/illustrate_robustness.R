@@ -25,21 +25,23 @@ robustness_data[,1] <- c(resp_sel_bet_imp_raw, nonresp_sel_bet_imp_raw)
 robustness_data[,2] <- c("Betweenness", "Eigenvector", "Bridging", "Keyplayer")
 robustness_data[,3] <- c(rep("Respondent", 4), rep("Nonrespondent", 4))
 
-colnames(robustness_data) <- c("prop", "algorithm", "node")
-robustness_data$algorithm <- factor(robustness_data$algorithm, levels=c("Betweenness", "Eigenvector", "Bridging", 
+colnames(robustness_data) <- c("prop", "Algorithm", "Node")
+robustness_data$Algorithm <- factor(robustness_data$Algorithm, levels=c("Betweenness", "Eigenvector", "Bridging", 
                                                                         "Keyplayer")) #to order nonalphabetically
 png(file="robustness.png")
-ggplot(robustness_data, aes(x=algorithm, y=prop, fill=node))+
+ggplot(robustness_data, aes(x=Algorithm, y=prop, fill=Node))+
   geom_bar(position="dodge", stat="identity")+
   ylab("Proportion of Agents")+ylab("proportion")+theme_minimal()
 dev.off()
 
 ##for evcent and keyplayer
-robustness_data_ev_kp <- robustness_data[robustness_data$algorithm == "Eigenvector" |
-                                           robustness_data$algorithm == "Keyplayer",]
+robustness_data_ev_kp <- robustness_data[robustness_data$Algorithm == "Eigenvector" |
+                                           robustness_data$Algorithm == "Keyplayer",]
 png(file="robustness_ev_kp.png")
-ggplot(robustness_data_ev_kp, aes(x=algorithm, y=prop, fill=node))+
+ggplot(robustness_data_ev_kp, aes(x=Algorithm, y=prop, fill=Node))+
   geom_bar(position="dodge", stat="identity")+
-  ylab("Proportion of Agents")+ylab("proportion")+theme_minimal()+
+  ylab("Proportion of nodes")+
+  #ylab("Proportion")+
+  theme_minimal()+
   coord_equal(1/0.4)
 dev.off()
