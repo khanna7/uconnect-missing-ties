@@ -1,6 +1,7 @@
 # RData files
 *.RData
 *.RDS
+*.rds
 
 # slurm log files
 slurm*
