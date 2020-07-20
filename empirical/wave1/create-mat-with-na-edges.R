@@ -12,7 +12,7 @@
 
    ## data
    #load("/home/khanna7/Projects/UConnect/UConnect_FB/FB_W1_Identified_4.15.2015/descriptives/w1_missing_tie_imputation_networks.RData")
-   load("/project/khanna7/Projects/UConnect/UConnect_FB/FB_W1_Identified_4.15.2015/descriptives/w1_missing_tie_imputation_networks.RData")
+   load("/project2/khanna7/Projects/UConnect/UConnect_FB/FB_W1_Identified_4.15.2015/descriptives/w1_missing_tie_imputation_networks.RData")
 
    ## order vertex names to avoid trouble later
    vnames <- w1.net.deg.greq.30%v%"vertex.names"
